@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">StreamFinds</string>
+    <string name="test">Test.</string>
+    <string name="intro">Search for a Movie or Series!</string>
 </resources>

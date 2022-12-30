@@ -25,7 +25,7 @@ import com.example.streamfinds.R
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
     var searchInput by remember {
-        mutableStateOf("Search")
+        mutableStateOf("")
     }
     Column(
         modifier = Modifier
@@ -58,7 +58,10 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier
                         .padding(horizontal = 64.dp) // margin left and right
                         .fillMaxWidth()
-                        .background(color = Color(0xFFD2F3F2), shape = RoundedCornerShape(size = 16.dp))
+                        .background(
+                            color = Color(0xFFD2F3F2),
+                            shape = RoundedCornerShape(size = 16.dp)
+                        )
                         .border(
                             width = 2.dp,
                             color = Color(0xFFAAE9E6),
@@ -77,8 +80,10 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 }
             }
         )
-        Button(onClick = { /*TODO*/ println(searchInput) }) {
+        Button(onClick = { /*TODO*/ }) {
             Text(text = "Find")
+            Log.d(String.toString(),searchInput)
+            println(searchInput)
 
         }
     }

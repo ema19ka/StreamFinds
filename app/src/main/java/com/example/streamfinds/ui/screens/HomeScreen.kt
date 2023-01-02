@@ -20,10 +20,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.streamfinds.R
+import com.example.streamfinds.ui.navigation.Screens
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(modifier: Modifier = Modifier, navController: NavController) {
     var searchInput by remember {
         mutableStateOf("")
     }
@@ -80,7 +82,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 }
             }
         )
-        Button(onClick = { println(searchInput) }) {
+        Button(onClick = { navController.navigate(Screens.Result.route) }) {
             Text(text = "Find")
 
 

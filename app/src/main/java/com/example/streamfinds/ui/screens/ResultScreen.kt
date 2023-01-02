@@ -24,6 +24,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.streamfinds.R
@@ -32,15 +34,15 @@ import com.example.streamfinds.model.SearchDTO
 
 @Composable
 fun ResultScreen(
-    streamsUiState: StreamsUiState,
-    retryAction: () -> Unit,
+    navController: NavController,
+    //streamsUiState: StreamsViewModel,
     modifier: Modifier = Modifier
 ) {
-    when (streamsUiState) {
+   /* when (streamsUiState) {
         is StreamsUiState.Loading -> LoadingScreen(modifier)
         is StreamsUiState.Success -> PhotosGridScreen(streamsUiState.streams, modifier)
-        is StreamsUiState.Error -> ErrorScreen(retryAction, modifier)
-    }
+    }*/
+    Text(text = "ResultScreen")
 }
 
 /**

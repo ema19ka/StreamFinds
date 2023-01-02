@@ -12,7 +12,7 @@ import retrofit2.HttpException
 import java.io.IOException
 
 /**
- * UI state for the Home screen
+ * UI state for the Result screen
  */
 sealed interface StreamsUiState {
     data class Success(val streams: List<FindDTO>) : StreamsUiState

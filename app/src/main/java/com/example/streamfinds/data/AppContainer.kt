@@ -18,8 +18,10 @@ interface AppContainer {
  *
  * Variables are initialized lazily and the same instance is shared across the whole app.
  */
-class DefaultAppContainer(override val streamFindsRepository: StreamFindsRepository) : AppContainer {
-    private val BASE_URL = "https://api.themoviedb.org/3/"
+class DefaultAppContainer(override val streamFindsRepository: StreamFindsRepository) :
+    AppContainer {
+    private val BASE_URL =
+        "https://api.themoviedb.org/3/"
 
     /**
      * Use the Retrofit builder to build a retrofit object using a kotlinx.serialization converter
@@ -36,10 +38,8 @@ class DefaultAppContainer(override val streamFindsRepository: StreamFindsReposit
         retrofit.create(MovieDbAPI::class.java)
     }
 
-    /**
-     * DI implementation for Mars photos repository
-     */
-     val streamFindsRepo: StreamFindsRepository by lazy {
+
+    val streamFindsRepo: StreamFindsRepository by lazy {
         NetworkStreamFindsRepository(retrofitService)
     }
 }

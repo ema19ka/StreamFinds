@@ -49,13 +49,13 @@ class StreamsViewModel(private val streamsRepo: StreamFindsRepository) : ViewMod
      * Factory for [StreamsViewModel] that takes [StreamFindsRepository] as a dependency
 
     companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val application = (this[APPLICATION_KEY] as StreamFindsRepository)
-                val marsPhotosRepository = application.container.marsPhotosRepository
-                StreamsViewModel(streamsRepo = streamsRepo)
-            }
-        }
+    val Factory: ViewModelProvider.Factory = viewModelFactory {
+    initializer {
+    val application = (this[APPLICATION_KEY] as StreamFindsRepository)
+    val marsPhotosRepository = application.container.marsPhotosRepository
+    StreamsViewModel(streamsRepo = streamsRepo)
     }
-    */
+    }
+    }
+     */
 }

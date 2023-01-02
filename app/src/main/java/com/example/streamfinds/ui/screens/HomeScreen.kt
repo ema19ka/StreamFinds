@@ -80,12 +80,10 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 }
             }
         )
-        Button(onClick = { /*TODO*/ }) {
+        Button(onClick = { println(searchInput) }) {
             Text(text = "Find")
-            Log.d(String.toString(),searchInput)
-            println(searchInput)
+
 
         }
     }
 }
-

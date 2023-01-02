@@ -1,12 +1,12 @@
 package com.example.streamfinds.model
 
 
-data class FindDTO (
+data class FindDTO(
     val movies: List<Movie>,
     val shows: List<TV>,
 )
 
-data class Movie (
+data class Movie(
     val id: Int,
     val poster: String,
     val releaseDate: String,
@@ -14,7 +14,7 @@ data class Movie (
     val lang: String,
 )
 
-data class TV (
+data class TV(
     val id: Int,
     val poster: String,
     val firstAirDate: String,

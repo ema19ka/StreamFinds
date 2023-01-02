@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.streamfinds.data.StreamFindsRepository
-import com.example.streamfinds.model.FindDTO
+import com.example.streamfinds.model.SearchDTO
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
@@ -15,7 +15,7 @@ import java.io.IOException
  * UI state for the Result screen
  */
 sealed interface StreamsUiState {
-    data class Success(val streams: List<FindDTO>) : StreamsUiState
+    data class Success(val streams: List<SearchDTO>) : StreamsUiState
     object Error : StreamsUiState
     object Loading : StreamsUiState
 }

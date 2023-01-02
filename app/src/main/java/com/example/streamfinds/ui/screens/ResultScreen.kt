@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.streamfinds.R
-import com.example.streamfinds.model.FindDTO
+import com.example.streamfinds.model.SearchDTO
 
 
 @Composable
@@ -81,20 +81,20 @@ fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier = Modifier) {
  * The home screen displaying photo grid.
  */
 @Composable
-fun PhotosGridScreen(photos: List<FindDTO>, modifier: Modifier = Modifier) {
+fun PhotosGridScreen(movies: List<SearchDTO>, modifier: Modifier = Modifier) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(150.dp),
         modifier = modifier.fillMaxWidth(),
         contentPadding = PaddingValues(4.dp)
     ) {
-        items(items = photos, key = { photo -> photo.movies }) { photo ->
-            PosterCard(photo)
+        items(items = movies, key = { movie -> movie.id }) { poster ->
+            PosterCard(poster)
         }
     }
 }
 
 @Composable
-fun PosterCard(photo: FindDTO, modifier: Modifier = Modifier) {
+fun PosterCard(movie: SearchDTO, modifier: Modifier = Modifier) {
     Card(
         modifier = modifier
             .padding(4.dp)
@@ -103,7 +103,7 @@ fun PosterCard(photo: FindDTO, modifier: Modifier = Modifier) {
     ) {
         AsyncImage(
             model = ImageRequest.Builder(context = LocalContext.current)
-                .data(photo.movies)
+                .data(movie.id)
                 .crossfade(true)
                 .build(),
             error = painterResource(R.drawable.loading_img),

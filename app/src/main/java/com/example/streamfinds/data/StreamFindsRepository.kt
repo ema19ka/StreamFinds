@@ -1,6 +1,6 @@
 package com.example.streamfinds.data
 
-import com.example.streamfinds.model.FindDTO
+import com.example.streamfinds.model.SearchDTO
 import com.example.streamfinds.network.MovieDbAPI
 
 /**
@@ -8,7 +8,7 @@ import com.example.streamfinds.network.MovieDbAPI
  */
 interface StreamFindsRepository {
     /** Fetches list of MarsPhoto from marsApi */
-    suspend fun getFindItems(api: String, query: String): List<FindDTO>
+    suspend fun getFindItems(api: String, query: String): List<SearchDTO>
 }
 
 /**
@@ -19,5 +19,5 @@ class NetworkStreamFindsRepository(
     private val movieDbAPI: MovieDbAPI
 ) : StreamFindsRepository {
     /** Fetches list of MarsPhoto from marsApi*/
-    override suspend fun getFindItems(api: String, query: String): List<FindDTO> = movieDbAPI.findItems(api, query)
+    override suspend fun getFindItems(api: String, query: String): List<SearchDTO> = movieDbAPI.findItems(api, query)
 }

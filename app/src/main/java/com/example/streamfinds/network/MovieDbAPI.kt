@@ -4,7 +4,7 @@ import com.example.streamfinds.model.FindDTO
 import retrofit2.http.GET
 
 interface MovieDbAPI {
-    @GET("/find/{api_key}")
-    suspend fun findItems(): List<FindDTO>
+    @GET("/find/{api_key}/{query}")
+    suspend fun findItems(key: String, query: String): List<FindDTO>
 }
 

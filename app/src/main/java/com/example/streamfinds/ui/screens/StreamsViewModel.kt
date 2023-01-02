@@ -20,23 +20,23 @@ sealed interface StreamsUiState {
     object Loading : StreamsUiState
 }
 
-class StreamsViewModel(private val streamsRepo: StreamFindsRepository) : ViewModel() {
+class StreamsViewModel(private val streamsRepo: StreamFindsRepository,api: String, query: String) : ViewModel() {
     /** The mutable State that stores the status of the most recent request */
     var streamsUiState: StreamsUiState by mutableStateOf(StreamsUiState.Loading)
         private set
 
     /**
-     * Call getMarsPhotos() on init so we can display status immediately.
+     * Call getFindItems() on init so we can display status immediately.
      */
     init {
-        getFindItems()
+        getFindItems(api, query)
     }
 
-    fun getFindItems() {
+    fun getFindItems(api: String, query: String) {
         viewModelScope.launch {
             //streamsUiState = StreamsUiState().Loading
             streamsUiState = try {
-                StreamsUiState.Success(streamsRepo.getFindItems())
+                StreamsUiState.Success(streamsRepo.getFindItems(api, query))
             } catch (e: IOException) {
                 StreamsUiState.Error
             } catch (e: HttpException) {

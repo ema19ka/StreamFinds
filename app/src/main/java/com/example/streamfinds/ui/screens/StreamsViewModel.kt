@@ -20,7 +20,8 @@ sealed interface StreamsUiState {
     object Loading : StreamsUiState
 }
 
-class StreamsViewModel(private val streamsRepo: StreamFindsRepository,api: String, query: String) : ViewModel() {
+class StreamsViewModel(private val streamsRepo: StreamFindsRepository, api: String, query: String) :
+    ViewModel() {
     /** The mutable State that stores the status of the most recent request */
     var streamsUiState: StreamsUiState by mutableStateOf(StreamsUiState.Loading)
         private set
@@ -45,17 +46,17 @@ class StreamsViewModel(private val streamsRepo: StreamFindsRepository,api: Strin
         }
     }
 
-    /**
-     * Factory for [StreamsViewModel] that takes [StreamFindsRepository] as a dependency
+
+    /** Factory for [StreamsViewModel] that takes [StreamFindsRepository] as a dependency
 
     companion object {
-    val Factory: ViewModelProvider.Factory = viewModelFactory {
-    initializer {
-    val application = (this[APPLICATION_KEY] as StreamFindsRepository)
-    val marsPhotosRepository = application.container.marsPhotosRepository
-    StreamsViewModel(streamsRepo = streamsRepo)
-    }
-    }
-    }
-     */
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val application = (this[APPLICATION_KEY] as StreamFindsRepository)
+                val streamsRepo = application.container.streamsRepo
+                StreamsViewModel(streamsRepo = streamsRepo)
+            }
+        }
+    }*/
+
 }

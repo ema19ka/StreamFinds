@@ -1,4 +1,4 @@
-package com.example.streamfinds.ui.screens
+package com.example.streamfinds.ui.screens.result
 
 import androidx.compose.material3.Text
 import androidx.compose.foundation.Image

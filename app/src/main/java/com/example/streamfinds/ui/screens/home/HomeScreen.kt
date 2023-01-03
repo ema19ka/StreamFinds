@@ -23,7 +23,7 @@ import androidx.navigation.NavController
 import com.example.streamfinds.R
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, navController: NavController) {
+fun HomeScreen(navController: NavController,modifier: Modifier = Modifier) {
     var searchInput by remember {
         mutableStateOf("")
     }

@@ -1,6 +1,5 @@
 package com.example.streamfinds.ui.screens
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -22,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.streamfinds.R
-import com.example.streamfinds.ui.navigation.Screens
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier, navController: NavController) {
@@ -82,7 +80,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController) {
                 }
             }
         )
-        Button(onClick = { navController.navigate(Screens.Result.route) }) {
+        Button(onClick = { navController.navigate("ResultScreen") }) {
             Text(text = "Find")
 
 

@@ -27,8 +27,10 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.streamfinds.R
+import com.example.streamfinds.data.StreamFindsRepository
 import com.example.streamfinds.model.SearchDTO
 import com.example.streamfinds.ui.screens.StreamsUiState
+import com.example.streamfinds.ui.screens.StreamsViewModel
 
 
 @Composable
@@ -48,15 +50,16 @@ fun ResultScreen(
  * The home screen displaying photo grid.
  */
 @Composable
-fun PosterGridScreen(movies: List<SearchDTO>, modifier: Modifier = Modifier) {
+fun PosterGridScreen(movies: List<SearchDTO>,api: String, query: String, modifier: Modifier = Modifier) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(150.dp),
         modifier = modifier.fillMaxWidth(),
         contentPadding = PaddingValues(4.dp)
     ) {
-        movies
+        StreamsViewModel(api, query)
     }
 }
+
 
 @Composable
 fun PosterCard(movie: SearchDTO, modifier: Modifier = Modifier) {

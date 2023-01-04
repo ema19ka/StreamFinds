@@ -10,7 +10,7 @@ import okhttp3.MediaType.Companion.toMediaType
  * Dependency Injection container at the application level.
  */
 interface AppContainer {
-    val streamFindsRepository: StreamFindsRepository
+    val streamFindsRepo: StreamFindsRepository
 }
 
 /**
@@ -18,8 +18,7 @@ interface AppContainer {
  *
  * Variables are initialized lazily and the same instance is shared across the whole app.
  */
-class DefaultAppContainer(override val streamFindsRepository: StreamFindsRepository) :
-    AppContainer {
+class DefaultAppContainer : AppContainer {
     private val BASE_URL =
         "https://api.themoviedb.org/3/"
 

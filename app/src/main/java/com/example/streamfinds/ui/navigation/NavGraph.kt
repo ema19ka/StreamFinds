@@ -6,12 +6,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.streamfinds.ui.screens.DetailsScreen
+import com.example.streamfinds.ui.screens.StreamsViewModel
 import com.example.streamfinds.ui.screens.home.HomeScreen
 import com.example.streamfinds.ui.screens.result.ResultScreen
 
 
 @Composable
-fun NavGraph (navController: NavHostController = rememberNavController()){
+fun NavGraph (navController: NavHostController = rememberNavController(), streamsViewModel: StreamsViewModel){
     NavHost(
         navController = navController,
         startDestination = Screens.Home.route)
@@ -20,7 +21,7 @@ fun NavGraph (navController: NavHostController = rememberNavController()){
             HomeScreen(navController)
         }
         composable(route = Screens.Result.route){
-            ResultScreen(navController)
+            ResultScreen(navController, streamsViewModel)
         }
         composable(route = Screens.Details.route){
             DetailsScreen()

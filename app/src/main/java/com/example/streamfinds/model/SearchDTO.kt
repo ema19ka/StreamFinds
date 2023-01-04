@@ -1,23 +1,19 @@
 package com.example.streamfinds.model
 
 
+
 data class SearchDTO(
-    val id: Int,
-    val poster: String,
-    val releaseDate: String,
-    val title: String,
-    val lang: String,
+    val result: Movie
 )
 
-/*
+
 data class Movie(
     val id: Int,
-    val poster: String,
+    val posterPath: String,
     val releaseDate: String,
     val title: String,
-    val lang: String,
 )
-
+/*
 data class TV(
     val id: Int,
     val poster: String,

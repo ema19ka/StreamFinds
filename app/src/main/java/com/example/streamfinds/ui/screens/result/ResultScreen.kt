@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
@@ -25,39 +24,57 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.streamfinds.R
 import com.example.streamfinds.model.SearchDTO
+import com.example.streamfinds.ui.screens.StreamsUiState
 
 
 @Composable
 fun ResultScreen(
     navController: NavController,
-    //streamsUiState: StreamsViewModel,
-    modifier: Modifier = Modifier
+    /*api: String,
+    query: String,
+    streamsUiState: StreamsUiState,*/
+    modifier: Modifier = Modifier,
 ) {
-   /* when (streamsUiState) {
-        is StreamsUiState.Loading -> LoadingScreen(modifier)
-        is StreamsUiState.Success -> PhotosGridScreen(streamsUiState.streams, modifier)
-    }*/
     Text(text = "ResultScreen")
+    //PosterGridScreen(streamsUiState.streams, modifier)
 }
 
+
 /**
- * The home screen displaying the loading message.
+ * The home screen displaying photo grid.
  */
 @Composable
-fun LoadingScreen(modifier: Modifier = Modifier) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier.fillMaxSize()
+fun PosterGridScreen(movies: List<SearchDTO>, modifier: Modifier = Modifier) {
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(150.dp),
+        modifier = modifier.fillMaxWidth(),
+        contentPadding = PaddingValues(4.dp)
     ) {
-        Image(
-            modifier = Modifier.size(200.dp),
-            painter = painterResource(R.drawable.loading_img),
-            contentDescription = stringResource(R.string.test)
+        movies
+    }
+}
+
+@Composable
+fun PosterCard(movie: SearchDTO, modifier: Modifier = Modifier) {
+    Card(
+        modifier = modifier
+            .padding(4.dp)
+            .fillMaxWidth()
+            .aspectRatio(1f),
+    ) {
+        AsyncImage(
+            model = ImageRequest.Builder(context = LocalContext.current)
+                .data(movie.id)
+                .crossfade(true)
+                .build(),
+            error = painterResource(R.drawable.loading_img),
+            placeholder = painterResource(R.drawable.loading_img),
+            contentDescription = stringResource(R.string.test),
+            contentScale = ContentScale.FillBounds,
         )
     }
 }
@@ -80,38 +97,18 @@ fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier = Modifier) {
 }
 
 /**
- * The home screen displaying photo grid.
+ * The home screen displaying the loading message.
  */
 @Composable
-fun PhotosGridScreen(movies: List<SearchDTO>, modifier: Modifier = Modifier) {
-    LazyVerticalGrid(
-        columns = GridCells.Adaptive(150.dp),
-        modifier = modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(4.dp)
+fun LoadingScreen(modifier: Modifier = Modifier) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier.fillMaxSize()
     ) {
-        items(items = movies, key = { movie -> movie.id }) { poster ->
-            PosterCard(poster)
-        }
-    }
-}
-
-@Composable
-fun PosterCard(movie: SearchDTO, modifier: Modifier = Modifier) {
-    Card(
-        modifier = modifier
-            .padding(4.dp)
-            .fillMaxWidth()
-            .aspectRatio(1f),
-    ) {
-        AsyncImage(
-            model = ImageRequest.Builder(context = LocalContext.current)
-                .data(movie.id)
-                .crossfade(true)
-                .build(),
-            error = painterResource(R.drawable.loading_img),
-            placeholder = painterResource(R.drawable.loading_img),
-            contentDescription = stringResource(R.string.test),
-            contentScale = ContentScale.FillBounds,
+        Image(
+            modifier = Modifier.size(200.dp),
+            painter = painterResource(R.drawable.loading_img),
+            contentDescription = stringResource(R.string.test)
         )
     }
 }

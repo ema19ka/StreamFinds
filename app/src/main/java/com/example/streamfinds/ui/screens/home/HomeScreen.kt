@@ -80,7 +80,7 @@ fun HomeScreen(navController: NavController,modifier: Modifier = Modifier) {
                 }
             }
         )
-        Button(onClick = { navController.navigate("ResultScreen") }) {
+        Button(onClick = { navController.navigate("result_screen") }) {
             Text(text = "Find")
 
 

@@ -21,10 +21,13 @@ fun ResultScreen(
     navController: NavController,
     streamsViewModel: StreamsViewModel,
     modifier: Modifier = Modifier,
-) {/*
+) {
     Row {
         LaunchedEffect(Unit, block = {
-            streamsViewModel.getMovieList(key="4e3418e89befff40b8dfab831c11e2d9", query = "Palm Springs")
+            streamsViewModel.getMovieList(
+                key = "4e3418e89befff40b8dfab831c11e2d9",
+                query = "Palm Springs"
+            )
         })
 
         Scaffold(
@@ -55,7 +58,8 @@ fun ResultScreen(
                                                 .padding(0.dp, 0.dp, 16.dp, 0.dp)
                                         ) {
                                             Text(
-                                                movie.title,
+                                                "not working",
+                                                //movie.results.title,
                                                 maxLines = 1,
                                                 overflow = TextOverflow.Ellipsis
                                             )
@@ -73,11 +77,13 @@ fun ResultScreen(
                 }
             }
         )
+    }/*
+    Column {
+        //Text(text = "ResultScreen")
+        Button(onClick = { navController.navigate("details_screen") }) {
+            Text(text = "Details")
         }
     }*/
-    Text(text = "ResultScreen")
-    Button(onClick = { navController.navigate("details_screen") }) {
-        Text(text = "Details")
-    }
+
 }
 

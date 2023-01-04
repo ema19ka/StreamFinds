@@ -1,6 +1,8 @@
 package com.example.streamfinds.network
 
+import com.example.streamfinds.model.Movie
 import com.example.streamfinds.model.SearchDTO
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET

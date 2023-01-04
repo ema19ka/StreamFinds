@@ -9,9 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.streamfinds.ui.navigation.NavGraph
-import com.example.streamfinds.ui.screens.StreamsUiState
 import com.example.streamfinds.ui.theme.StreamFindsTheme
-import com.example.streamfinds.ui.screens.StreamsViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

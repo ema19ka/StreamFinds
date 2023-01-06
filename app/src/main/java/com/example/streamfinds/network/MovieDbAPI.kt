@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface MovieDbAPI {
     @GET("search/movie")
-    suspend fun searchMovie(
+    fun searchMovie(
         @Query("api_key") api_key: String = "4e3418e89befff40b8dfab831c11e2d9",
         @Query("query") query: String
     ): Call<GetMoviesResponse>

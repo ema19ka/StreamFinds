@@ -22,6 +22,8 @@ fun ResultScreen(
     streamsViewModel: StreamsViewModel,
     modifier: Modifier = Modifier,
 ) {
+}
+/*
     Row {
         LaunchedEffect(Unit, block = {
             streamsViewModel.getMovieList(
@@ -85,5 +87,6 @@ fun ResultScreen(
         }
     }*/
 
-}
+}*/
+
 

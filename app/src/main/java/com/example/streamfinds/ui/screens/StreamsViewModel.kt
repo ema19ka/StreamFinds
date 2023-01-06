@@ -5,20 +5,21 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.streamfinds.model.Movie
-import com.example.streamfinds.model.SearchDTO
+import com.example.streamfinds.model.GetMoviesResponse
 import com.example.streamfinds.network.MovieDbAPI
 import kotlinx.coroutines.launch
 
 
 class StreamsViewModel : ViewModel() {
-    private val _movieList = (mutableStateListOf <SearchDTO>())
+    /*
+    private val _movieList = (mutableStateListOf <GetMoviesResponse>())
     var errorMessage: String by mutableStateOf("")
-    val movieList: List<SearchDTO>
+    val movieList: List<GetMoviesResponse>
         get() = _movieList
 
     fun getMovieList(key: String, query: String) {
         viewModelScope.launch {
-            val apiService = MovieDbAPI.getInstance()
+            val apiService = MovieDbAPI.()
             try {
                 _movieList.clear()
                 _movieList.addAll(apiService.findItems(key, query))
@@ -27,7 +28,7 @@ class StreamsViewModel : ViewModel() {
                 errorMessage = e.message.toString()
             }
         }
-    }
+    }*/
 }
 /**
  * UI state for the Result screen

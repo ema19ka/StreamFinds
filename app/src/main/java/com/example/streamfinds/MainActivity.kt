@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import com.example.streamfinds.data.StreamFindsRepository
 import com.example.streamfinds.ui.navigation.NavGraph
 import com.example.streamfinds.ui.screens.StreamsViewModel
 import com.example.streamfinds.ui.theme.StreamFindsTheme
@@ -17,6 +18,8 @@ class MainActivity : ComponentActivity() {
         val streamsViewModel = StreamsViewModel()
         super.onCreate(savedInstanceState)
         setContent {
+            StreamFindsRepository.getMovies()
+            /*
             StreamFindsTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
@@ -30,7 +33,7 @@ class MainActivity : ComponentActivity() {
                         navController = navController, streamsViewModel
                     )
                 }
-            }
+            }*/
         }
     }
 }

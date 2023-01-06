@@ -93,11 +93,7 @@ fun ResultScreen(
 }
 
 private fun onMoviesFetched(movies: List<Movie>) {
-    //Log.d("Repo", "Movies: $movies")
-    @Composable
-    fun MoviesList(){
-        Text(text = movies[0].title)
-    }
+    Log.d("Repo", "Movies: $movies")
 }
 
 private fun onError() {

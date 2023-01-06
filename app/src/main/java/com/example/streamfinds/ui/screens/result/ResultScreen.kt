@@ -1,8 +1,6 @@
 package com.example.streamfinds.ui.screens.result
 
-import android.provider.Settings.Global.getString
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -23,6 +21,7 @@ import androidx.navigation.NavController
 import com.example.streamfinds.data.StreamFindsRepository
 import com.example.streamfinds.model.Movie
 import com.example.streamfinds.ui.screens.StreamsViewModel
+import com.google.gson.annotations.SerializedName
 
 
 @Composable
@@ -80,21 +79,26 @@ fun ResultScreen(
             )
         }) {
             Text(text = "Search")
-        }
 
+        }
+        /*
         Column {
             Text(text = "ResultScreen")
             Button(onClick = { navController.navigate("details_screen") }) {
                 Text(text = "Details")
             }
-        }
+        }*/
 
     }
 
 }
 
 private fun onMoviesFetched(movies: List<Movie>) {
-    Log.d("Repo", "Movies: $movies")
+    //Log.d("Repo", "Movies: $movies")
+    @Composable
+    fun MoviesList(){
+        Text(text = movies[0].title)
+    }
 }
 
 private fun onError() {

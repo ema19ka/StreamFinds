@@ -5,6 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun SavedItemsScreen( modifier: Modifier = Modifier){
-    Text(text = "List of Saved Items")
+fun DetailsScreen( modifier: Modifier = Modifier){
+    Text(text = "Details of Movie")
 }

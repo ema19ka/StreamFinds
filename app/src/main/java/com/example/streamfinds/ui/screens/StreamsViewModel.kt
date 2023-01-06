@@ -1,66 +1,41 @@
 package com.example.streamfinds.ui.screens
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import android.telecom.Call
+import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.streamfinds.data.StreamFindsRepository
-import com.example.streamfinds.model.SearchDTO
+import com.example.streamfinds.model.Movie
+import com.example.streamfinds.model.GetMoviesResponse
+import com.example.streamfinds.network.MovieDbAPI
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
-import java.io.IOException
 
+
+class StreamsViewModel : ViewModel() {
+    /*
+    private val _movieList = (mutableStateListOf <GetMoviesResponse>())
+    var errorMessage: String by mutableStateOf("")
+    val movieList: List<GetMoviesResponse>
+        get() = _movieList
+
+    fun getMovieList(key: String, query: String) {
+        viewModelScope.launch {
+            val apiService = MovieDbAPI.()
+            try {
+                _movieList.clear()
+                _movieList.addAll(apiService.findItems(key, query))
+
+            } catch (e: Exception) {
+                errorMessage = e.message.toString()
+            }
+        }
+    }*/
+}
 /**
  * UI state for the Result screen
- */
+
 sealed interface StreamsUiState {
-    data class Success(val streams: List<SearchDTO>) : StreamsUiState
-    object Error : StreamsUiState
-    object Loading : StreamsUiState
+
 }
-
-class StreamsViewModel(api: String, query: String, private val streamsRepo: StreamFindsRepository = StreamFindsRepository) :
-    ViewModel() {
-    /** The mutable State that stores the status of the most recent request */
-    var streamsUiState: StreamsUiState by mutableStateOf(StreamsUiState.Loading)
-        private set
-
-    /**
-     * Call getFindItems() on init so we can display status immediately.
-     */
-    init {
-        getFindItems(api, query)
-    }
-
-    fun getFindItems(api: String, query: String) {
-        viewModelScope.launch {
-            //streamsUiState = StreamsUiState().Loading
-            streamsUiState = try {
-                StreamsUiState.Success(streamsRepo.getFindItems(api, query))
-            } catch (e: IOException) {
-                StreamsUiState.Error
-            } catch (e: HttpException) {
-                StreamsUiState.Error
-            }
-        }
-    }
-
-
-    // Factory for [StreamsViewModel] that takes [StreamFindsRepository] as a dependency
-/*
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val application = (this[APPLICATION_KEY] as StreamFindsRepository)
-                val streamsRepo = application.container.streamsRepo
-                StreamsViewModel(streamsRepo = streamsRepo)
-            }
-        }
-    }
-*/
-}
+ */

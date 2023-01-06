@@ -1,7 +1,6 @@
 package com.example.streamfinds.ui.theme
 
 import android.app.Activity
-import android.hardware.lights.Light
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -16,9 +15,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
 
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.lightColorScheme
-import androidx.compose.material3.darkColorScheme
 
 
 private val LightColors = lightColorScheme(

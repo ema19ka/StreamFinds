@@ -21,7 +21,6 @@ import androidx.navigation.NavController
 import com.example.streamfinds.data.StreamFindsRepository
 import com.example.streamfinds.model.Movie
 import com.example.streamfinds.ui.screens.StreamsViewModel
-import com.google.gson.annotations.SerializedName
 
 
 @Composable

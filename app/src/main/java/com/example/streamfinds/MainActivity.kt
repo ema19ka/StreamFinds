@@ -18,8 +18,6 @@ class MainActivity : ComponentActivity() {
         val streamsViewModel = StreamsViewModel()
         super.onCreate(savedInstanceState)
         setContent {
-            StreamFindsRepository.getMovies()
-            /*
             StreamFindsTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
@@ -33,7 +31,7 @@ class MainActivity : ComponentActivity() {
                         navController = navController, streamsViewModel
                     )
                 }
-            }*/
+            }
         }
     }
 }

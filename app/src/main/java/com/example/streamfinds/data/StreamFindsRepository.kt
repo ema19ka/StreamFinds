@@ -1,6 +1,8 @@
 package com.example.streamfinds.data
+
 import android.util.Log
 import com.example.streamfinds.model.GetMoviesResponse
+import com.example.streamfinds.model.Movie
 import com.example.streamfinds.network.MovieDbAPI
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,7 +29,11 @@ object StreamFindsRepository {
         api = retrofit.create(MovieDbAPI::class.java)
     }
 
-    fun getMovies(query: String = "Palm") {
+    fun getMovies(
+        query: String,
+        onSuccess: (movies: List<Movie>) -> Unit,
+        onError: () -> Unit
+    ) {
         api.searchMovie(query = query)
             .enqueue(object : Callback<GetMoviesResponse> {
                 override fun onResponse(
@@ -38,15 +44,15 @@ object StreamFindsRepository {
                         val responseBody = response.body()
 
                         if (responseBody != null) {
-                            Log.d("Repository", "Movies: ${responseBody.movies}")
+                            onSuccess.invoke(responseBody.movies)
                         } else {
-                            Log.d("Repository", "Failed to get response")
+                            onError.invoke()
                         }
                     }
                 }
 
                 override fun onFailure(call: Call<GetMoviesResponse>, t: Throwable) {
-                    Log.e("Repository", "onFailure", t)
+                    onError.invoke()
                 }
             })
     }

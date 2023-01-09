@@ -1,5 +1,6 @@
 package com.example.streamfinds.ui.screens.result
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -14,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.example.streamfinds.R
 import com.example.streamfinds.model.Movie
@@ -29,7 +31,6 @@ fun ResultScreen(
 ) {
     val movies = streamsViewModel.list
     if(streamsViewModel.isMovieInitialised()){
-        println(movies)
         MoviesGridScreen(movies = movies)
     }
 }
@@ -54,16 +55,8 @@ fun MoviesGridScreen(movies: List<Movie>, modifier: Modifier = Modifier) {
 
 @Composable
 fun MoviePosterCard(movie: Movie, modifier: Modifier = Modifier) {
-    Card(
-        modifier = modifier
-            .padding(4.dp)
-            .fillMaxWidth()
-            .aspectRatio(1f),
-
-    ) {
-        Text(text = movie.title)
-
-        AsyncImage(
+    Column {
+        /*AsyncImage(
             model = ImageRequest.Builder(context = LocalContext.current)
                 .data(movie.posterPath)
                 .crossfade(true)
@@ -72,7 +65,9 @@ fun MoviePosterCard(movie: Movie, modifier: Modifier = Modifier) {
             //placeholder = painterResource(R.drawable.loading_img),
             contentDescription = stringResource(R.string.test),
             contentScale = ContentScale.FillBounds,
-        )
+        )*/
+        Image(modifier = Modifier.size(200.dp), painter = rememberAsyncImagePainter("https://image.tmdb.org/t/p/w342/${movie.posterPath}"), contentDescription = "loading")
+        Text(text = movie.title)
     }
 }
 

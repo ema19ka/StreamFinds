@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.streamfinds.R
 import com.example.streamfinds.ui.screens.StreamsViewModel
+import com.example.streamfinds.ui.screens.result.MoviesGridScreen
 
 @Composable
 fun HomeScreen(navController: NavController, streamsViewModel: StreamsViewModel, modifier: Modifier = Modifier) {
@@ -88,26 +89,11 @@ fun HomeScreen(navController: NavController, streamsViewModel: StreamsViewModel,
             )
             Button(onClick = {
                 streamsViewModel.getMovies(searchInput)
-                navController.navigate("result_screen")
-
+                if(streamsViewModel.isMovieInitialised()){
+                    navController.navigate("result_screen")
+                }
             }) {
                 Text(text = "Search")
-
-
-            }
-            /*
-            Column {
-                Text(text = "ResultScreen")
-                Button(onClick = { navController.navigate("details_screen") }) {
-                    Text(text = "Details")
-                }
-            }*/
-            Box(modifier = modifier.fillMaxSize().padding(10.dp, 25.dp)) {
-                Column{
-                    Image(modifier = Modifier.size(200.dp), painter = painterResource(R.drawable.loading_img), contentDescription = "loading")
-                    Text(text = "Loading")
-                }
-
             }
 
         }

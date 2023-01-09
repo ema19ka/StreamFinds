@@ -7,9 +7,7 @@ import com.example.streamfinds.model.Movie
 
 class StreamsViewModel() : ViewModel() {
 
-    lateinit var moviesList: List<Movie>
     var list = mutableListOf<Movie>()
-    fun isMovieInitialised() = ::moviesList.isInitialized
 
 
     fun getMovies(query: String) {
@@ -17,12 +15,7 @@ class StreamsViewModel() : ViewModel() {
             query,
             onSuccess = { movies ->
                 Log.d("MainActivity", "Movies: $movies")
-                println("Repo: $movies")
-                println("idk")
-                moviesList = movies
                 list = movies as MutableList<Movie>
-                println("Normal: $moviesList")
-                println("Mut: $list")
 
             },
             onError = {
@@ -30,12 +23,5 @@ class StreamsViewModel() : ViewModel() {
             }
         )
     }
-
 }
-/**
- * UI state for the Result screen
 
-sealed interface StreamsUiState {
-
-}
- */

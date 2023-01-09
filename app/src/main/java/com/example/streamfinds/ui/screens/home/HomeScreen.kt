@@ -1,6 +1,5 @@
 package com.example.streamfinds.ui.screens.home
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -15,7 +14,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -24,10 +22,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.streamfinds.R
 import com.example.streamfinds.ui.screens.StreamsViewModel
-import com.example.streamfinds.ui.screens.result.MoviesGridScreen
 
 @Composable
-fun HomeScreen(navController: NavController, streamsViewModel: StreamsViewModel, modifier: Modifier = Modifier) {
+fun HomeScreen(
+    navController: NavController,
+    streamsViewModel: StreamsViewModel,
+    modifier: Modifier = Modifier
+) {
 
     var searchInput by remember {
         mutableStateOf("")
@@ -89,9 +90,7 @@ fun HomeScreen(navController: NavController, streamsViewModel: StreamsViewModel,
             )
             Button(onClick = {
                 streamsViewModel.getMovies(searchInput)
-                if(streamsViewModel.isMovieInitialised()){
-                    navController.navigate("result_screen")
-                }
+                navController.navigate("result_screen")
             }) {
                 Text(text = "Search")
             }

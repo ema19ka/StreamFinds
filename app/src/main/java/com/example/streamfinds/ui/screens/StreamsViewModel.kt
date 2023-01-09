@@ -23,5 +23,23 @@ class StreamsViewModel() : ViewModel() {
             }
         )
     }
+
+    fun getMovieDetails(movieId: Int) {
+        println("fun")
+        println(movieId)
+        com.example.streamfinds.data.StreamFindsRepository.getMovieDetails(
+            movieId,
+            onSuccess = { movie ->
+                println("bla")
+                println(movie.title)
+                Log.d("Test", "movie: $movie")
+                /***/
+            },
+            onError = {
+                println("error")
+                Log.d("MainAc", "error")
+            }
+        )
+    }
 }
 

@@ -37,16 +37,20 @@ fun MoviesGridScreen(movies: List<Movie>, modifier: Modifier = Modifier) {
         contentPadding = PaddingValues(4.dp)
     ) {
         items(items = movies, key = { movie -> movie.id }) { movie ->
-            MoviePosterCard(movie)
+            MoviePosterCard(movie, streamsViewModel = StreamsViewModel())
         }
     }
 }
 
 @Composable
-fun MoviePosterCard(movie: Movie, modifier: Modifier = Modifier) {
+fun MoviePosterCard(movie: Movie, streamsViewModel: StreamsViewModel, modifier: Modifier = Modifier) {
     Column {
         Image(modifier = Modifier.size(200.dp), painter = rememberAsyncImagePainter("https://image.tmdb.org/t/p/w342/${movie.posterPath}"), contentDescription = "loading")
-        Text(text = movie.title)
+        Button(onClick = {
+            streamsViewModel.getMovieDetails(movie.id)
+        }) {
+            Text(text = movie.title)
+        }
     }
 }
 

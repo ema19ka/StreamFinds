@@ -56,4 +56,30 @@ object StreamFindsRepository {
                 }
             })
     }
+
+    fun getMovieDetails(
+        id: Int,
+        onSuccess: (movie: Movie) -> Unit,
+        onError: () -> Unit
+
+    ) {
+        api.movieDetails(movie_id = id)
+            .enqueue(object : Callback<Movie> {
+                override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        println("respBody: $responseBody")
+                        if (responseBody != null) {
+                            onSuccess.invoke(responseBody)
+                        } else {
+                            onError.invoke()
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<Movie>, t: Throwable) {
+                    onError.invoke()
+                }
+            })
+    }
 }

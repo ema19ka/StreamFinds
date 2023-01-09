@@ -18,7 +18,7 @@ fun NavGraph (navController: NavHostController = rememberNavController(), stream
         startDestination = Screens.Home.route)
     {
         composable(route = Screens.Home.route){
-            HomeScreen(navController)
+            HomeScreen(navController, streamsViewModel)
         }
         composable(route = Screens.Result.route){
             ResultScreen(navController, streamsViewModel)

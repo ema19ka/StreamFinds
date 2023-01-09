@@ -1,20 +1,15 @@
 package com.example.streamfinds.ui.screens
 
-import android.telecom.Call
 import android.util.Log
-import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
-import androidx.lifecycle.viewModelScope
-import com.example.streamfinds.data.StreamFindsRepository
 import com.example.streamfinds.model.Movie
-import com.example.streamfinds.model.GetMoviesResponse
-import com.example.streamfinds.network.MovieDbAPI
-import kotlinx.coroutines.launch
 
 
 class StreamsViewModel() : ViewModel() {
+
+    lateinit var moviesList: List<Movie>
+    var list = mutableListOf<Movie>()
+    fun isMovieInitialised() = ::moviesList.isInitialized
 
 
     fun getMovies(query: String) {
@@ -22,8 +17,12 @@ class StreamsViewModel() : ViewModel() {
             query,
             onSuccess = { movies ->
                 Log.d("MainActivity", "Movies: $movies")
-                println(movies)
+                println("Repo: $movies")
                 println("idk")
+                moviesList = movies
+                list = movies as MutableList<Movie>
+                println("Normal: $moviesList")
+                println("Mut: $list")
 
             },
             onError = {

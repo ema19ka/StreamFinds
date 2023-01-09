@@ -43,6 +43,10 @@ fun ResultScreen(
     var searchInput by remember {
         mutableStateOf("")
     }
+
+    var testMoviesResponse by remember {
+        mutableStateOf("")
+    }
     Column {
         BasicTextField(
             value = searchInput,
@@ -82,13 +86,11 @@ fun ResultScreen(
             }
         )
         Button(onClick = {
-            StreamFindsRepository.getMovies(
-                searchInput,
-                onSuccess = ::onMoviesFetched,
-                onError = ::onError
-            )
+
+            streamsViewModel.getMovies(searchInput)
         }) {
             Text(text = "Search")
+
 
         }
         /*
@@ -109,15 +111,6 @@ fun ResultScreen(
     }
 
 }
-
-private fun onMoviesFetched(movies: List<Movie>) {
-    Log.d("Repo", "Movies: $movies")
-}
-
-private fun onError() {
-    Log.d("MainAc", "error")
-}
-
 
 /**
  * The home screen displaying photo grid.

@@ -3,6 +3,7 @@ package com.example.streamfinds.data
 import android.util.Log
 import com.example.streamfinds.model.GetMoviesResponse
 import com.example.streamfinds.model.Movie
+import com.example.streamfinds.model.MovieDetails
 import com.example.streamfinds.network.MovieDbAPI
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,8 +41,10 @@ object StreamFindsRepository {
                     call: Call<GetMoviesResponse>,
                     response: Response<GetMoviesResponse>
                 ) {
+                    println(response)
                     if (response.isSuccessful) {
                         val responseBody = response.body()
+                        println(responseBody)
 
                         if (responseBody != null) {
                             onSuccess.invoke(responseBody.movies)
@@ -59,25 +62,30 @@ object StreamFindsRepository {
 
     fun getMovieDetails(
         id: Int,
-        onSuccess: (movie: Movie) -> Unit,
+        onSuccess: (movie: MovieDetails) -> Unit,
         onError: () -> Unit
 
     ) {
         api.movieDetails(movie_id = id)
-            .enqueue(object : Callback<Movie> {
-                override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+            .enqueue(object : Callback<MovieDetails> {
+                override fun onResponse(call: Call<MovieDetails>, response: Response<MovieDetails>) {
+                    println(response)
+                    println("in onResponse")
                     if (response.isSuccessful) {
+                        println("isSucc")
                         val responseBody = response.body()
                         println("respBody: $responseBody")
                         if (responseBody != null) {
+                            println("is not null")
                             onSuccess.invoke(responseBody)
-                        } else {
-                            onError.invoke()
                         }
+                    } else {
+                        onError.invoke()
                     }
                 }
 
-                override fun onFailure(call: Call<Movie>, t: Throwable) {
+                override fun onFailure(call: Call<MovieDetails>, t: Throwable) {
+                    println("onFail")
                     onError.invoke()
                 }
             })

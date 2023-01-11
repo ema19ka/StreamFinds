@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 /**
- * Repository that fetch movies list from movieApi.
+ * Repository that fetches movies list from movieApi.
  */
 //object bc of singleton
 

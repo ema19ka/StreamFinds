@@ -12,8 +12,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.streamfinds.model.Movie
+import com.example.streamfinds.model.MovieDetails
 import com.example.streamfinds.ui.screens.StreamsViewModel
-
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -23,35 +24,41 @@ fun ResultScreen(
     modifier: Modifier = Modifier,
 ) {
     val movies = streamsViewModel.list
-    MoviesGridScreen(movies = movies)
+    MoviesGridScreen(movies = movies, navController)
 }
 
 /**
  * The home screen displaying photo grid.
  */
 @Composable
-fun MoviesGridScreen(movies: List<Movie>, modifier: Modifier = Modifier) {
+fun MoviesGridScreen(movies: List<Movie>, navController: NavController, modifier: Modifier = Modifier) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(150.dp),
         modifier = modifier.fillMaxWidth(),
         contentPadding = PaddingValues(4.dp)
     ) {
         items(items = movies, key = { movie -> movie.id }) { movie ->
-            MoviePosterCard(movie, streamsViewModel = StreamsViewModel())
+            MoviePosterCard(movie, streamsViewModel = StreamsViewModel(), navController)
         }
     }
 }
 
 @Composable
-fun MoviePosterCard(movie: Movie, streamsViewModel: StreamsViewModel, modifier: Modifier = Modifier) {
+fun MoviePosterCard(movie: Movie, streamsViewModel: StreamsViewModel, navController: NavController,  modifier: Modifier = Modifier) {
+    val coroutineScope = rememberCoroutineScope()
     Column {
         Image(modifier = Modifier.size(200.dp), painter = rememberAsyncImagePainter("https://image.tmdb.org/t/p/w342/${movie.posterPath}"), contentDescription = "loading")
         Button(onClick = {
             streamsViewModel.getMovieDetails(movie.id)
+            coroutineScope.launch {
+                navController.navigate("details_screen")
+            }
         }) {
             Text(text = movie.title)
         }
     }
 }
+
+
 
 

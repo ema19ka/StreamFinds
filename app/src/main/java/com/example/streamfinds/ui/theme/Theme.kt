@@ -44,9 +44,6 @@ private val LightColors = lightColorScheme(
     inverseOnSurface = md_theme_light_inverseOnSurface,
     inverseSurface = md_theme_light_inverseSurface,
     inversePrimary = md_theme_light_inversePrimary,
-    //surfaceTint = md_theme_light_surfaceTint,
-    //outlineVariant = md_theme_light_outlineVariant,
-    //scrim = md_theme_light_scrim,
 )
 
 
@@ -77,33 +74,7 @@ private val DarkColors = darkColorScheme(
     inverseOnSurface = md_theme_dark_inverseOnSurface,
     inverseSurface = md_theme_dark_inverseSurface,
     inversePrimary = md_theme_dark_inversePrimary,
-    //surfaceTint = md_theme_dark_surfaceTint,
-    //outlineVariant = md_theme_dark_outlineVariant,
-    //scrim = md_theme_dark_scrim,
 )
-
-/*
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
-
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
-)*/
 
 @Composable
 fun StreamFindsTheme(
@@ -135,21 +106,3 @@ fun StreamFindsTheme(
         content = content
     )
 }
-/*
-@Composable
-fun StreamFindsTheme(
-    useDarkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable() () -> Unit
-) {
-    val colors = if (!useDarkTheme) {
-        LightColors
-    } else {
-        DarkColors
-    }
-
-    MaterialTheme(
-        colorScheme = colors,
-        content = content
-    )
-}
-*/

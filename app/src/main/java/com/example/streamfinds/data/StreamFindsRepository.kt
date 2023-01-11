@@ -44,8 +44,6 @@ object StreamFindsRepository {
                     println(response)
                     if (response.isSuccessful) {
                         val responseBody = response.body()
-                        println(responseBody)
-
                         if (responseBody != null) {
                             onSuccess.invoke(responseBody.movies)
                         } else {
@@ -69,14 +67,10 @@ object StreamFindsRepository {
         api.movieDetails(movie_id = id)
             .enqueue(object : Callback<MovieDetails> {
                 override fun onResponse(call: Call<MovieDetails>, response: Response<MovieDetails>) {
-                    println(response)
-                    println("in onResponse")
                     if (response.isSuccessful) {
-                        println("isSucc")
                         val responseBody = response.body()
                         println("respBody: $responseBody")
                         if (responseBody != null) {
-                            println("is not null")
                             onSuccess.invoke(responseBody)
                         }
                     } else {

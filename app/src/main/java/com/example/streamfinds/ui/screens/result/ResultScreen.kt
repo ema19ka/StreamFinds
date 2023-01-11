@@ -31,7 +31,11 @@ fun ResultScreen(
  * The home screen displaying photo grid.
  */
 @Composable
-fun MoviesGridScreen(movies: List<Movie>, navController: NavController, modifier: Modifier = Modifier) {
+fun MoviesGridScreen(
+    movies: List<Movie>,
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(150.dp),
         modifier = modifier.fillMaxWidth(),
@@ -44,15 +48,22 @@ fun MoviesGridScreen(movies: List<Movie>, navController: NavController, modifier
 }
 
 @Composable
-fun MoviePosterCard(movie: Movie, streamsViewModel: StreamsViewModel, navController: NavController,  modifier: Modifier = Modifier) {
+fun MoviePosterCard(
+    movie: Movie,
+    streamsViewModel: StreamsViewModel,
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
     val coroutineScope = rememberCoroutineScope()
     Column {
-        Image(modifier = Modifier.size(200.dp), painter = rememberAsyncImagePainter("https://image.tmdb.org/t/p/w342/${movie.posterPath}"), contentDescription = "loading")
+        Image(
+            modifier = Modifier.size(200.dp),
+            painter = rememberAsyncImagePainter("https://image.tmdb.org/t/p/w342/${movie.posterPath}"),
+            contentDescription = "loading"
+        )
         Button(onClick = {
             streamsViewModel.getMovieDetails(movie.id)
-            coroutineScope.launch {
-                navController.navigate("details_screen")
-            }
+            navController.navigate("details_screen")
         }) {
             Text(text = movie.title)
         }

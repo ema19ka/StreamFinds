@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.streamfinds.model.Movie
 import com.example.streamfinds.model.MovieDetails
+import com.example.streamfinds.ui.navigation.Screens
 import com.example.streamfinds.ui.screens.StreamsViewModel
 import kotlinx.coroutines.launch
 
@@ -42,7 +43,11 @@ fun MoviesGridScreen(
         contentPadding = PaddingValues(4.dp)
     ) {
         items(items = movies, key = { movie -> movie.id }) { movie ->
-            MoviePosterCard(movie, streamsViewModel = StreamsViewModel(), navController)
+            MoviePosterCard(
+                movie,
+                streamsViewModel = StreamsViewModel(),
+                navController
+            )
         }
     }
 }
@@ -54,7 +59,6 @@ fun MoviePosterCard(
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
-    val coroutineScope = rememberCoroutineScope()
     Column {
         Image(
             modifier = Modifier.size(200.dp),
@@ -62,10 +66,18 @@ fun MoviePosterCard(
             contentDescription = "loading"
         )
         Button(onClick = {
+            println(streamsViewModel.finished)
             streamsViewModel.getMovieDetails(movie.id)
-            navController.navigate("details_screen")
         }) {
             Text(text = movie.title)
+        }
+        LaunchedEffect(streamsViewModel.finished) {
+            if (streamsViewModel.finished === true) {
+                navController.navigate("details_screen/${movie.id}")
+
+            } else {
+                println("false bool")
+            }
         }
     }
 }

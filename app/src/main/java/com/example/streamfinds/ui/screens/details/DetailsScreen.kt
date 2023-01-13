@@ -10,8 +10,10 @@ import com.example.streamfinds.ui.screens.StreamsViewModel
 @Composable
 fun DetailsScreen(streamsViewModel: StreamsViewModel, modifier: Modifier = Modifier) {
     val movieDetails = streamsViewModel.movDet2
+    println(streamsViewModel.finished)
     println("DetailScreen: $movieDetails")
-    //MovieDetails(movieDetails)
+    MovieDetails(movieDetails = movieDetails)
+
 
 }
 

@@ -13,10 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.streamfinds.model.Movie
-import com.example.streamfinds.model.MovieDetails
-import com.example.streamfinds.ui.navigation.Screens
 import com.example.streamfinds.ui.screens.StreamsViewModel
-import kotlinx.coroutines.launch
 
 
 @Composable
@@ -60,7 +57,7 @@ fun MoviePosterCard(
         Image(
             modifier = Modifier.size(200.dp),
             painter = rememberAsyncImagePainter("https://image.tmdb.org/t/p/w342/${movie.posterPath}"),
-            contentDescription = "loading"
+            contentDescription = "poster"
         )
         Button(onClick = {
             navController.navigate("details_screen/${movie.id}")

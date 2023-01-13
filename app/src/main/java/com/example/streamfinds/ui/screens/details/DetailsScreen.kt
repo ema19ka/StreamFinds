@@ -2,6 +2,7 @@ package com.example.streamfinds.ui.screens.details
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
@@ -37,5 +38,13 @@ fun MovieDetails(movieDetails: MovieDetails) {
             contentDescription = "poster"
         )
         Text(text = movieDetails.title)
+        Row {
+            Text(text = "Release Date: ")
+            Text(text = movieDetails.releaseDate)
+        }
+        Row {
+            Text(text = "Original language: ")
+            Text(text = movieDetails.lang)
+        }
     }
 }

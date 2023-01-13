@@ -27,7 +27,6 @@ import com.example.streamfinds.ui.screens.StreamsViewModel
 fun HomeScreen(
     navController: NavController,
     streamsViewModel: StreamsViewModel,
-    modifier: Modifier = Modifier
 ) {
 
     var searchInput by remember {
@@ -50,7 +49,7 @@ fun HomeScreen(
             text = stringResource(R.string.intro),
             fontSize = 18.sp,
         )
-        Column {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
             BasicTextField(
                 value = searchInput,
                 onValueChange = { newText ->

@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -22,7 +23,6 @@ import kotlinx.coroutines.launch
 fun ResultScreen(
     navController: NavController,
     streamsViewModel: StreamsViewModel,
-    modifier: Modifier = Modifier,
 ) {
     val movies = streamsViewModel.list
     MoviesGridScreen(movies = movies, navController)
@@ -45,7 +45,6 @@ fun MoviesGridScreen(
         items(items = movies, key = { movie -> movie.id }) { movie ->
             MoviePosterCard(
                 movie,
-                streamsViewModel = StreamsViewModel(),
                 navController
             )
         }
@@ -55,11 +54,9 @@ fun MoviesGridScreen(
 @Composable
 fun MoviePosterCard(
     movie: Movie,
-    streamsViewModel: StreamsViewModel,
     navController: NavController,
-    modifier: Modifier = Modifier
 ) {
-    Column {
+    Column(modifier = Modifier.padding(top = 25.dp, bottom =25.dp), horizontalAlignment = Alignment.CenterHorizontally) {
         Image(
             modifier = Modifier.size(200.dp),
             painter = rememberAsyncImagePainter("https://image.tmdb.org/t/p/w342/${movie.posterPath}"),

@@ -1,6 +1,5 @@
 package com.example.streamfinds.data
 
-import android.util.Log
 import com.example.streamfinds.model.GetMoviesResponse
 import com.example.streamfinds.model.Movie
 import com.example.streamfinds.model.MovieDetails

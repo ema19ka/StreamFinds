@@ -27,7 +27,6 @@ class StreamsViewModel() : ViewModel() {
             query,
             onSuccess = { movies ->
                 list = movies as MutableList<Movie>
-
             },
             onError = {
                 Log.d("MainAc", "error")
@@ -41,17 +40,15 @@ class StreamsViewModel() : ViewModel() {
                 movieId,
                 onSuccess = { movieDet ->
                     movDet2 = movieDet
-                    println("in fun: $movieDet");
+                    println("in fun: $movieDet")
+                    //change state to indicate coroutine has finished
                     finished = true
                 },
                 onError = {
                     Log.d("MainAc", "error")
                 }
             )
-            //change state to indicate coroutine has finished
-
         }
-
     }
 }
 

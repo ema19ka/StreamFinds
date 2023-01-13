@@ -14,7 +14,7 @@ class StreamsViewModel() : ViewModel() {
 
     var list = mutableListOf<Movie>()
 
-    var movDet2 by mutableStateOf(MovieDetails(1, "", "", "", ""))
+    var movDet2 by mutableStateOf(MovieDetails(0, "title", "", "", ""))
 
 
     fun getMovies(query: String) {
@@ -34,7 +34,6 @@ class StreamsViewModel() : ViewModel() {
         com.example.streamfinds.data.StreamFindsRepository.getMovieDetails(
             movieId,
             onSuccess = { movieDet ->
-                Log.d("Test", "movie: $movieDet")
                 movDet2 = movieDet
                 println("in fun: $movieDet");
             },

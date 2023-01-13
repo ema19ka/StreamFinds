@@ -21,7 +21,6 @@ data class MovieDetails(
     @SerializedName("poster_path") val posterPath: String?,
     @SerializedName("release_date") val releaseDate: String,
     @SerializedName("original_language") val lang: String
-
 )
 
 data class GetProviders(

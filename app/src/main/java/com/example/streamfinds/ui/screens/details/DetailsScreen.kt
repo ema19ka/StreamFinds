@@ -2,7 +2,7 @@ package com.example.streamfinds.ui.screens.details
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.example.streamfinds.model.MovieDetails
 import com.example.streamfinds.ui.screens.StreamsViewModel
@@ -11,6 +11,7 @@ import com.example.streamfinds.ui.screens.StreamsViewModel
 fun DetailsScreen(streamsViewModel: StreamsViewModel, modifier: Modifier = Modifier) {
     val movieDetails = streamsViewModel.movDet2
     println("DetailScreen: $movieDetails")
+    //MovieDetails(movieDetails)
 
 }
 

@@ -66,18 +66,9 @@ fun MoviePosterCard(
             contentDescription = "loading"
         )
         Button(onClick = {
-            println(streamsViewModel.finished)
-            streamsViewModel.getMovieDetails(movie.id)
+            navController.navigate("details_screen/${movie.id}")
         }) {
             Text(text = movie.title)
-        }
-        LaunchedEffect(streamsViewModel.finished) {
-            if (streamsViewModel.finished === true) {
-                navController.navigate("details_screen/${movie.id}")
-
-            } else {
-                println("false bool")
-            }
         }
     }
 }

@@ -15,6 +15,8 @@ import kotlinx.coroutines.launch
 
 class StreamsViewModel() : ViewModel() {
 
+
+
     var list = mutableListOf<Movie>()
 
     var movDet2 by mutableStateOf(MovieDetails(0, "title", "", "", ""))
@@ -34,20 +36,22 @@ class StreamsViewModel() : ViewModel() {
         )
     }
 
-    fun getMovieDetails(movieId: Int) {
+    fun getMovieDetails(movieId: String?) {
         viewModelScope.launch(Dispatchers.IO) {
-            com.example.streamfinds.data.StreamFindsRepository.getMovieDetails(
-                movieId,
-                onSuccess = { movieDet ->
-                    movDet2 = movieDet
-                    println("in fun: $movieDet")
-                    //change state to indicate coroutine has finished
-                    finished = true
-                },
-                onError = {
-                    Log.d("MainAc", "error")
-                }
-            )
+            if (movieId != null) {
+                com.example.streamfinds.data.StreamFindsRepository.getMovieDetails(
+                    movieId.toInt(),
+                    onSuccess = { movieDet ->
+                        movDet2 = movieDet
+                        println("in fun: $movieDet")
+                        //change state to indicate coroutine has finished
+                        finished = true
+                    },
+                    onError = {
+                        Log.d("MainAc", "error")
+                    }
+                )
+            }
         }
     }
 }

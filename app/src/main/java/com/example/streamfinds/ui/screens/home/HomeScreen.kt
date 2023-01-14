@@ -47,7 +47,7 @@ fun HomeScreen(
         Card(
             Modifier
                 .size(width = 400.dp, height = 300.dp)
-                .padding(16.dp)
+                .padding(16.dp),
         ) {
             Column(
                 modifier = Modifier

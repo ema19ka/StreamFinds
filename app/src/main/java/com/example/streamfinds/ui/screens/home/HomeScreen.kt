@@ -60,7 +60,7 @@ fun HomeScreen(
                 keyboardActions = KeyboardActions(
                     onDone = {
                         streamsViewModel.getMovies(searchInput)
-                        navController.navigate("result_screen")
+                        navController.navigate("result")
                     }
                 ),
                 onValueChange = { newText ->
@@ -100,7 +100,7 @@ fun HomeScreen(
             )
             Button(onClick = {
                 streamsViewModel.getMovies(searchInput)
-                navController.navigate("result_screen")
+                navController.navigate("result")
             }) {
                 Text(text = "Search")
             }

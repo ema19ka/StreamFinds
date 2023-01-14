@@ -29,7 +29,7 @@ fun ResultScreen(
             title = { Text(text = "Search results") },
             navigationIcon = {
                 IconButton(
-                    onClick = { navController.navigate("home_screen") },
+                    onClick = { navController.navigate("home") },
                     enabled = true,
                 ) {
                     Icon(
@@ -87,7 +87,7 @@ fun MoviePosterCard(
         Button(
             modifier = Modifier.padding(top = 16.dp),
             onClick = {
-                navController.navigate("details_screen/${movie.id}")
+                navController.navigate("details/${movie.id}")
             }) {
             Text(text = movie.title)
         }

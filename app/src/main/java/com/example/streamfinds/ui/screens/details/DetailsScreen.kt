@@ -38,7 +38,7 @@ fun DetailsScreen(
             title = { Text(text = streamsViewModel.movDet2.title) },
             navigationIcon = {
                 IconButton(
-                    onClick = { navController.navigate("result_screen") },
+                    onClick = { navController.navigate("result") },
                     enabled = true,
                 ) {
                     Icon(

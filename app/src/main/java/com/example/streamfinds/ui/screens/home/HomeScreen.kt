@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.streamfinds.R
+import com.example.streamfinds.model.HomeScreenTabs
 import com.example.streamfinds.ui.screens.StreamsViewModel
 
 @Composable
@@ -30,6 +31,11 @@ fun HomeScreen(
     navController: NavController,
     streamsViewModel: StreamsViewModel,
 ) {
+    val tabs = listOf(
+        HomeScreenTabs.Movies,
+        HomeScreenTabs.Shows,
+    )
+
     var state by remember { mutableStateOf(0) }
     val titles = listOf("Movie", "Series")
 
@@ -121,4 +127,14 @@ fun HomeScreen(
 
         }
     }
+}
+
+@Composable
+fun MovieSearch(){
+    Text("Movie")
+}
+
+@Composable
+fun ShowSearch(){
+    Text("TV")
 }

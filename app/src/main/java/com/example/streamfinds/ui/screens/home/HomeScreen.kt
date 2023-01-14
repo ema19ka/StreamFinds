@@ -50,7 +50,7 @@ fun HomeScreen(
         )
         Text(
             modifier = Modifier.padding(top = 25.dp, bottom = 15.dp),
-            text = stringResource(R.string.intro),
+            text = stringResource(R.string.movie_intro),
             fontSize = 18.sp,
         )
         Column(horizontalAlignment = Alignment.CenterHorizontally) {

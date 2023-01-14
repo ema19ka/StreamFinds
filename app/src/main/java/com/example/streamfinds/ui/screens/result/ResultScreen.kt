@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -25,6 +27,18 @@ fun ResultScreen(
     Column {
         CenterAlignedTopAppBar(
             title = { Text(text = "Search results") },
+            navigationIcon = {
+                IconButton(
+                    onClick = { navController.navigate("home_screen") },
+                    enabled = true,
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Go Back",
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                    )
+                }
+            }
         )
         val movies = streamsViewModel.list
         MoviesGridScreen(movies = movies, navController)

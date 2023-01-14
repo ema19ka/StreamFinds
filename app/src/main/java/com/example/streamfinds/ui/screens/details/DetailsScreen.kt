@@ -5,8 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.LocalTextStyle
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,15 +23,35 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.streamfinds.model.MovieDetails
 import com.example.streamfinds.ui.screens.StreamsViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailsScreen(
     streamsViewModel: StreamsViewModel,
     navController: NavController,
 ) {
     val currentMovieId = navController.currentBackStackEntry?.arguments?.getString("movie_id")
-    streamsViewModel.getMovieDetails(currentMovieId)
     val movieDetails = streamsViewModel.movDet2
-    MovieDetails(movieDetails = movieDetails)
+    streamsViewModel.getMovieDetails(currentMovieId)
+
+    Column{
+        CenterAlignedTopAppBar(
+            title = { Text(text = streamsViewModel.movDet2.title) },
+            navigationIcon = {
+                IconButton(
+                    onClick = { navController.navigate("result_screen") },
+                    enabled = true,
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Go Back",
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                    )
+                }
+            }
+        )
+        MovieDetails(movieDetails = movieDetails)
+    }
+
 }
 
 @Composable
@@ -57,9 +78,6 @@ fun MovieDetails(movieDetails: MovieDetails) {
                 style = LocalTextStyle.current.merge(
                     TextStyle(
                         lineHeight = 2.5.em,
-                        platformStyle = PlatformTextStyle(
-                            includeFontPadding = false
-                        ),
                         lineHeightStyle = LineHeightStyle(
                             alignment = LineHeightStyle.Alignment.Center,
                             trim = LineHeightStyle.Trim.None

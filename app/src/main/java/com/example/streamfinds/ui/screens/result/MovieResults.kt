@@ -20,7 +20,7 @@ import com.example.streamfinds.ui.screens.StreamsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ResultScreen(
+fun MovieResults(
     navController: NavController,
     streamsViewModel: StreamsViewModel,
 ) {

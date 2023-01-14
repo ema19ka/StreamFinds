@@ -28,10 +28,12 @@ fun HomeScreen(
     navController: NavController,
     streamsViewModel: StreamsViewModel,
 ) {
-    var searchInput by remember {
+    var movieInput by remember {
         mutableStateOf("")
     }
-
+    var showInput by remember {
+        mutableStateOf("")
+    }
     Column(
         modifier = Modifier
             .padding(top = 10.dp),
@@ -40,71 +42,150 @@ fun HomeScreen(
         Text(
             modifier = Modifier.padding(top = 50.dp, bottom = 50.dp),
             text = stringResource(R.string.app_name),
-            fontSize = 28.sp,
+            fontSize = 32.sp,
         )
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            BasicTextField(
-                value = searchInput,
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        streamsViewModel.getMovies(searchInput)
-                        navController.navigate("result")
+        Card(
+            Modifier
+                .size(width = 400.dp, height = 300.dp)
+                .padding(16.dp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(top = 10.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = "Search for a Movie", fontSize = 24.sp)
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    BasicTextField(
+                        value = movieInput,
+                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                        keyboardActions = KeyboardActions(
+                            onDone = {
+                                streamsViewModel.getMovies(movieInput)
+                                navController.navigate("movies_result")
+                            }
+                        ),
+                        onValueChange = { newText ->
+                            movieInput = newText
+                        },
+                        textStyle = TextStyle(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        ),
+                        decorationBox = { innerTextField ->
+                            Row(
+                                modifier = Modifier
+                                    .padding(
+                                        horizontal = 64.dp,
+                                        vertical = 16.dp
+                                    ) // margin left and right
+                                    .fillMaxWidth()
+                                    .background(
+                                        color = MaterialTheme.colorScheme.primaryContainer,
+                                        shape = RoundedCornerShape(size = 16.dp)
+                                    )
+                                    .border(
+                                        width = 2.dp,
+                                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                        shape = RoundedCornerShape(size = 16.dp)
+                                    )
+                                    .padding(all = 16.dp), // inner padding
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Search,
+                                    contentDescription = "Search Icon",
+                                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                )
+                                Spacer(modifier = Modifier.width(width = 8.dp))
+                                innerTextField()
+                            }
+                        }
+                    )
+                    Button(onClick = {
+                        streamsViewModel.getMovies(movieInput)
+                        navController.navigate("movies_result")
+                    }) {
+                        Text(text = "Search")
                     }
-                ),
-                onValueChange = { newText ->
-                    searchInput = newText
-                },
-                textStyle = TextStyle(
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                ),
-                decorationBox = { innerTextField ->
-                    Row(
-                        modifier = Modifier
-                            .padding(horizontal = 64.dp, vertical = 16.dp) // margin left and right
-                            .fillMaxWidth()
-                            .background(
-                                color = MaterialTheme.colorScheme.primaryContainer,
-                                shape = RoundedCornerShape(size = 16.dp)
-                            )
-                            .border(
-                                width = 2.dp,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer,
-                                shape = RoundedCornerShape(size = 16.dp)
-                            )
-                            .padding(all = 16.dp), // inner padding
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = "Search Icon",
-                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                        )
-                        Spacer(modifier = Modifier.width(width = 8.dp))
-                        innerTextField()
-                    }
-                }
-            )
-            Button(onClick = {
-                streamsViewModel.getMovies(searchInput)
-                streamsViewModel.getShows("How")
-                navController.navigate("result")
-            }) {
-                Text(text = "Search")
-            }
 
+                }
+            }
+        }
+
+        Card(
+            Modifier
+                .size(width = 400.dp, height = 300.dp)
+                .padding(16.dp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(top = 10.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = "Search for a Show", fontSize = 24.sp)
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    BasicTextField(
+                        value = showInput,
+                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                        keyboardActions = KeyboardActions(
+                            onDone = {
+                                streamsViewModel.getShows(showInput)
+                                navController.navigate("shows_result")
+                            }
+                        ),
+                        onValueChange = { newText ->
+                            showInput = newText
+                        },
+                        textStyle = TextStyle(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        ),
+                        decorationBox = { innerTextField ->
+                            Row(
+                                modifier = Modifier
+                                    .padding(
+                                        horizontal = 64.dp,
+                                        vertical = 16.dp
+                                    ) // margin left and right
+                                    .fillMaxWidth()
+                                    .background(
+                                        color = MaterialTheme.colorScheme.primaryContainer,
+                                        shape = RoundedCornerShape(size = 16.dp)
+                                    )
+                                    .border(
+                                        width = 2.dp,
+                                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                        shape = RoundedCornerShape(size = 16.dp)
+                                    )
+                                    .padding(all = 16.dp), // inner padding
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Search,
+                                    contentDescription = "Search Icon",
+                                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                )
+                                Spacer(modifier = Modifier.width(width = 8.dp))
+                                innerTextField()
+                            }
+                        }
+                    )
+                    Button(onClick = {
+                        streamsViewModel.getShows(showInput)
+                        navController.navigate("shows_result")
+                    }) {
+                        Text(text = "Search")
+                    }
+
+                }
+            }
         }
     }
+
+
 }
 
-@Composable
-fun MovieSearch(){
-    Text("Movie")
-}
 
-@Composable
-fun ShowSearch(){
-    Text("TV")
-}

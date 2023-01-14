@@ -8,7 +8,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.streamfinds.ui.screens.details.DetailsScreen
 import com.example.streamfinds.ui.screens.StreamsViewModel
 import com.example.streamfinds.ui.screens.home.HomeScreen
-import com.example.streamfinds.ui.screens.result.ResultScreen
+import com.example.streamfinds.ui.screens.result.MovieResults
+import com.example.streamfinds.ui.screens.result.ShowResults
 
 
 @Composable
@@ -20,8 +21,11 @@ fun NavGraph (navController: NavHostController = rememberNavController(), stream
         composable(route = Screens.Home.route){
             HomeScreen(navController, streamsViewModel)
         }
-        composable(route = Screens.Result.route){
-            ResultScreen(navController, streamsViewModel)
+        composable(route = Screens.MoviesResult.route){
+            MovieResults(navController, streamsViewModel)
+        }
+        composable(route = Screens.ShowsResult.route){
+            ShowResults(navController, streamsViewModel)
         }
         composable(route = Screens.Details.route){ backStackEntry ->
             val movie_id = backStackEntry.arguments?.getString("movie_id")

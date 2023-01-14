@@ -35,7 +35,7 @@ fun DetailsScreen(
 
     Column{
         CenterAlignedTopAppBar(
-            title = { Text(text = streamsViewModel.movDet2.title) },
+            title = { Text(text = streamsViewModel.movDet2.enTitle) },
             navigationIcon = {
                 IconButton(
                     onClick = { navController.navigate("result") },

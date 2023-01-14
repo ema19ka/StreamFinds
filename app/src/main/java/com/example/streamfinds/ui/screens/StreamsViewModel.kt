@@ -19,7 +19,7 @@ class StreamsViewModel() : ViewModel() {
 
     var list = mutableListOf<Movie>()
 
-    var movDet2 by mutableStateOf(MovieDetails(0, "title", "", "", ""))
+    var movDet2 by mutableStateOf(MovieDetails(0, "title", "", "", "", ""))
 
     var finished by mutableStateOf(false)
 

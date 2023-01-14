@@ -20,7 +20,8 @@ data class MovieDetails(
     @SerializedName("original_title") val title: String,
     @SerializedName("poster_path") val posterPath: String?,
     @SerializedName("release_date") val releaseDate: String,
-    @SerializedName("original_language") val lang: String
+    @SerializedName("original_language") val lang: String,
+    @SerializedName("title") val enTitle: String,
 )
 
 data class GetProviders(

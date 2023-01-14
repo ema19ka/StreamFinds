@@ -1,8 +1,6 @@
 package com.example.streamfinds.data
 
-import com.example.streamfinds.model.GetMoviesResponse
-import com.example.streamfinds.model.Movie
-import com.example.streamfinds.model.MovieDetails
+import com.example.streamfinds.model.*
 import com.example.streamfinds.network.MovieDbAPI
 import retrofit2.Call
 import retrofit2.Callback
@@ -76,6 +74,32 @@ object StreamFindsRepository {
                 }
 
                 override fun onFailure(call: Call<MovieDetails>, t: Throwable) {
+                    onError.invoke()
+                }
+            })
+    }
+
+    fun getMovieWatchProviders(
+        id: Int,
+        onSuccess: (streamService: GetProviders) -> Unit,
+        onError: () -> Unit
+
+    ) {
+        api.movieWatchProviders(movie_id = id)
+            .enqueue(object : Callback<GetProviders> {
+                override fun onResponse(call: Call<GetProviders>, response: Response<GetProviders>) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+                            onSuccess.invoke(responseBody)
+                            println(response)
+                        }
+                    } else {
+                        onError.invoke()
+                    }
+                }
+
+                override fun onFailure(call: Call<GetProviders>, t: Throwable) {
                     onError.invoke()
                 }
             })

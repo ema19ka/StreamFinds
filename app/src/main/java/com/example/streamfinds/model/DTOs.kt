@@ -24,7 +24,7 @@ data class MovieDetails(
 
 data class Show(
     @SerializedName("id") val id: Int,
-    @SerializedName("original_title") val title: String,
+    @SerializedName("original_name") val title: String,
     @SerializedName("poster_path") val posterPath: String,
 )
 
@@ -34,7 +34,7 @@ data class GetShowsResponse(
 
 data class ShowDetails(
     @SerializedName("id") val id: Int,
-    @SerializedName("original_title") val title: String,
+    @SerializedName("original_name") val title: String,
     @SerializedName("poster_path") val posterPath: String?,
     @SerializedName("release_date") val releaseDate: String,
     @SerializedName("original_language") val lang: String,

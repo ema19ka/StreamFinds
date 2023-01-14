@@ -1,9 +1,6 @@
 package com.example.streamfinds.network
 
-import com.example.streamfinds.model.GetMoviesResponse
-import com.example.streamfinds.model.GetProviders
-import com.example.streamfinds.model.MovieDetails
-import com.example.streamfinds.model.StreamService
+import com.example.streamfinds.model.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -22,6 +19,18 @@ interface MovieDbAPI {
         @Path("movie_id") movie_id: Int,
         @Query("api_key") api_key: String = "4e3418e89befff40b8dfab831c11e2d9"
     ): Call<MovieDetails>
+
+    @GET("search/tv")
+    fun searchShow(
+        @Query("api_key") api_key: String = "4e3418e89befff40b8dfab831c11e2d9",
+        @Query("query") query: String
+    ): Call<GetShowsResponse>
+
+    @GET("tv/{tv_id}")
+    fun showDetails(
+        @Path("tv_id") tv_id: Int,
+        @Query("api_key") api_key: String = "4e3418e89befff40b8dfab831c11e2d9"
+    ): Call<ShowDetails>
 
     @GET("movie/{movie_id}/watch/providers")
     fun movieWatchProviders(

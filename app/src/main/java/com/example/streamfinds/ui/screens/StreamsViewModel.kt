@@ -16,6 +16,7 @@ class StreamsViewModel() : ViewModel() {
 
 
     var list = mutableListOf<Movie>()
+    var showsList = mutableListOf<Show>()
 
     var movDet2 by mutableStateOf(MovieDetails(0, "title", "", "", "", ""))
 
@@ -51,6 +52,19 @@ class StreamsViewModel() : ViewModel() {
                 )
             }
         }
+    }
+
+    fun getShows(query: String) {
+        com.example.streamfinds.data.StreamFindsRepository.getShow(
+            query,
+            onSuccess = { shows ->
+                showsList = shows as MutableList<Show>
+                println(showsList)
+            },
+            onError = {
+                Log.d("MainAc", "error")
+            }
+        )
     }
     /*
     fun getStreamService(movieId: String?) {

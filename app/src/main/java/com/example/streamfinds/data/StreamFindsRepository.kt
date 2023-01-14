@@ -79,6 +79,33 @@ object StreamFindsRepository {
             })
     }
 
+    fun getShow(
+        query: String,
+        onSuccess: (shows: List<Show>) -> Unit,
+        onError: () -> Unit
+    ) {
+        api.searchShow(query = query)
+            .enqueue(object : Callback<GetShowsResponse> {
+                override fun onResponse(
+                    call: Call<GetShowsResponse>,
+                    response: Response<GetShowsResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+                            onSuccess.invoke(responseBody.movies)
+                        } else {
+                            onError.invoke()
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<GetShowsResponse>, t: Throwable) {
+                    onError.invoke()
+                }
+            })
+    }
+
     fun getMovieWatchProviders(
         id: Int,
         onSuccess: (streamService: GetProviders) -> Unit,

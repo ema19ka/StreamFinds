@@ -7,7 +7,8 @@ import androidx.compose.runtime.setValue
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.streamfinds.model.*
+import com.example.streamfinds.model.Movie
+import com.example.streamfinds.model.MovieDetails
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -15,10 +16,10 @@ import kotlinx.coroutines.launch
 class StreamsViewModel() : ViewModel() {
 
 
+
     var list = mutableListOf<Movie>()
 
     var movDet2 by mutableStateOf(MovieDetails(0, "title", "", "", "", ""))
-
 
     var finished by mutableStateOf(false)
 
@@ -52,23 +53,5 @@ class StreamsViewModel() : ViewModel() {
             }
         }
     }
-    /*
-    fun getStreamService(movieId: String?) {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (movieId != null) {
-                com.example.streamfinds.data.StreamFindsRepository.getMovieWatchProviders(
-                    movieId.toInt(),
-                    onSuccess = { service ->
-                        watchProviders = service
-                        //change state to indicate coroutine has finished
-                    },
-                    onError = {
-                        Log.d("MainAc", "error")
-                    }
-                )
-            }
-        }
-    }*/
 }
-
 

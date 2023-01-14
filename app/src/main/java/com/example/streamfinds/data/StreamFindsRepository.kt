@@ -40,7 +40,6 @@ object StreamFindsRepository {
                     call: Call<GetMoviesResponse>,
                     response: Response<GetMoviesResponse>
                 ) {
-                    println(response)
                     if (response.isSuccessful) {
                         val responseBody = response.body()
                         if (responseBody != null) {
@@ -68,7 +67,6 @@ object StreamFindsRepository {
                 override fun onResponse(call: Call<MovieDetails>, response: Response<MovieDetails>) {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
-                        println("respBody: $responseBody")
                         if (responseBody != null) {
                             onSuccess.invoke(responseBody)
                         }
@@ -78,7 +76,6 @@ object StreamFindsRepository {
                 }
 
                 override fun onFailure(call: Call<MovieDetails>, t: Throwable) {
-                    println("onFail")
                     onError.invoke()
                 }
             })

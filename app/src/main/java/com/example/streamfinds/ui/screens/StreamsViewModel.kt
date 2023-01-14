@@ -43,7 +43,6 @@ class StreamsViewModel() : ViewModel() {
                     movieId.toInt(),
                     onSuccess = { movieDet ->
                         movDet2 = movieDet
-                        println("in fun: $movieDet")
                         //change state to indicate coroutine has finished
                         finished = true
                     },

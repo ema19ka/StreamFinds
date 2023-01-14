@@ -32,6 +32,7 @@ fun DetailsScreen(
     val currentMovieId = navController.currentBackStackEntry?.arguments?.getString("movie_id")
     val movieDetails = streamsViewModel.movDet2
     streamsViewModel.getMovieDetails(currentMovieId)
+    //streamsViewModel.getStreamService(currentMovieId)
 
     Column{
         CenterAlignedTopAppBar(

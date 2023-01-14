@@ -26,7 +26,7 @@ data class MovieDetails(
 
 data class GetProviders(
     @SerializedName("id") val id: Int,
-    @SerializedName("results") val providers: List<ProviderCountry>
+    @SerializedName("results") val providers: ProviderCountry
 )
 
 data class ProviderCountry(
@@ -35,7 +35,12 @@ data class ProviderCountry(
 
 data class Provider(
     @SerializedName("link") val link: String,
+    @SerializedName("rent") val streamService: List<StreamService>
+)
 
+data class StreamService(
+    @SerializedName("logo_path") val logo: String,
+    @SerializedName("provider_name") val name: String
 )
 
 

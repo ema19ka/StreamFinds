@@ -38,6 +38,7 @@ fun HomeScreen(
 
     Column(
         modifier = Modifier
+            .background(color = MaterialTheme.colorScheme.background)
             .padding(20.dp)
             .padding(top = 50.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -81,7 +82,7 @@ fun HomeScreen(
                             )
                             .border(
                                 width = 2.dp,
-                                color = MaterialTheme.colorScheme.primaryContainer,
+                                color = MaterialTheme.colorScheme.onPrimaryContainer,
                                 shape = RoundedCornerShape(size = 16.dp)
                             )
                             .padding(all = 16.dp), // inner padding

@@ -16,13 +16,20 @@ import com.example.streamfinds.model.Movie
 import com.example.streamfinds.ui.screens.StreamsViewModel
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ResultScreen(
     navController: NavController,
     streamsViewModel: StreamsViewModel,
 ) {
-    val movies = streamsViewModel.list
-    MoviesGridScreen(movies = movies, navController)
+    Column {
+        CenterAlignedTopAppBar(
+            title = { Text(text = "Search results") },
+        )
+        val movies = streamsViewModel.list
+        MoviesGridScreen(movies = movies, navController)
+
+    }
 }
 
 /**
@@ -37,7 +44,7 @@ fun MoviesGridScreen(
     LazyVerticalGrid(
         columns = GridCells.Adaptive(150.dp),
         modifier = modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(4.dp)
+        contentPadding = PaddingValues(2.dp)
     ) {
         items(items = movies, key = { movie -> movie.id }) { movie ->
             MoviePosterCard(
@@ -46,6 +53,7 @@ fun MoviesGridScreen(
             )
         }
     }
+
 }
 
 @Composable
@@ -53,15 +61,20 @@ fun MoviePosterCard(
     movie: Movie,
     navController: NavController,
 ) {
-    Column(modifier = Modifier.padding(top = 25.dp, bottom =25.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        modifier = Modifier.padding(top = 25.dp, bottom = 25.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Image(
             modifier = Modifier.size(200.dp),
             painter = rememberAsyncImagePainter("https://image.tmdb.org/t/p/w342/${movie.posterPath}"),
             contentDescription = "poster"
         )
-        Button(onClick = {
-            navController.navigate("details_screen/${movie.id}")
-        }) {
+        Button(
+            modifier = Modifier.padding(top = 16.dp),
+            onClick = {
+                navController.navigate("details_screen/${movie.id}")
+            }) {
             Text(text = movie.title)
         }
     }

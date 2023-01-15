@@ -87,7 +87,7 @@ fun MoviePosterCard(
         Button(
             modifier = Modifier.padding(top = 16.dp),
             onClick = {
-                navController.navigate("details/${movie.id}")
+                navController.navigate("movie_details/${movie.id}")
             }) {
             Text(text = movie.title)
         }

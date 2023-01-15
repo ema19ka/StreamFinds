@@ -11,7 +11,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.LineHeightStyle
@@ -25,7 +24,7 @@ import com.example.streamfinds.ui.screens.StreamsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailsScreen(
+fun MovieDetailsScreen(
     streamsViewModel: StreamsViewModel,
     navController: NavController,
 ) {
@@ -39,7 +38,7 @@ fun DetailsScreen(
             title = { Text(text = streamsViewModel.movDet2.enTitle) },
             navigationIcon = {
                 IconButton(
-                    onClick = { navController.navigate("result") },
+                    onClick = { navController.navigate("movies_result") },
                     enabled = true,
                 ) {
                     Icon(

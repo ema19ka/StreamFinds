@@ -19,7 +19,7 @@ class StreamsViewModel() : ViewModel() {
     var showsList = mutableListOf<Show>()
 
     var movDet2 by mutableStateOf(MovieDetails(0, "title", "", "", "", ""))
-
+    var showDetails by mutableStateOf(ShowDetails(0, "title", "", "", "", ""))
 
     var finished by mutableStateOf(false)
     var watchProviders = mutableListOf<StreamService>()
@@ -60,12 +60,29 @@ class StreamsViewModel() : ViewModel() {
             query,
             onSuccess = { shows ->
                 showsList = shows as MutableList<Show>
-                println(showsList)
             },
             onError = {
                 Log.d("MainAc", "error")
             }
         )
+    }
+
+    fun getShowDetails(tvId: String?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (tvId != null) {
+                com.example.streamfinds.data.StreamFindsRepository.getShowDetails(
+                    tvId.toInt(),
+                    onSuccess = { showDet ->
+                        showDetails = showDet
+                        //change state to indicate coroutine has finished
+                        finished = true
+                    },
+                    onError = {
+                        Log.d("MainAc", "error")
+                    }
+                )
+            }
+        }
     }
 
     fun getStreamService(tvId: String?) {

@@ -4,5 +4,6 @@ sealed class Screens(val route: String) {
     object Home: Screens("home")
     object MoviesResult: Screens("movies_result")
     object ShowsResult: Screens("shows_result")
-    object Details: Screens("details/{movie_id}")
+    object MovieDetails: Screens("movie_details/{movie_id}")
+    object ShowDetails: Screens("show_details/{tv_id}")
 }

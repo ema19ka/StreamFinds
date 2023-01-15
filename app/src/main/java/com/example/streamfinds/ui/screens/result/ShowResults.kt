@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.example.streamfinds.model.Movie
 import com.example.streamfinds.model.Show
 import com.example.streamfinds.ui.screens.StreamsViewModel
 
@@ -89,7 +88,7 @@ fun ShowPosterCard(
         Button(
             modifier = Modifier.padding(top = 16.dp),
             onClick = {
-                //navController.navigate("details/${show.id}")
+                navController.navigate("show_details/${show.id}")
             }) {
             Text(text = show.title)
         }

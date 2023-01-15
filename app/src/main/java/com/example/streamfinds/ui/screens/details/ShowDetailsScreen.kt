@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.streamfinds.model.ShowDetails
+import com.example.streamfinds.model.StreamService
 import com.example.streamfinds.ui.screens.StreamsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,7 +34,8 @@ fun ShowDetailsScreen(
     val currentShowId = navController.currentBackStackEntry?.arguments?.getString("tv_id")
     val showDetails = streamsViewModel.showDetails
     streamsViewModel.getShowDetails(currentShowId)
-
+    streamsViewModel.getStreamService(currentShowId)
+    val streamServices = streamsViewModel.watchProviders
 
     Column{
         CenterAlignedTopAppBar(
@@ -52,7 +54,7 @@ fun ShowDetailsScreen(
             }
         )
         ShowDetails(showDetails = showDetails)
-        //ShowWatchProvider(currentShowId, streamsViewModel)
+        ShowWatchProvider(streamServices)
     }
 
 }
@@ -108,10 +110,10 @@ fun ShowDetails(showDetails: ShowDetails) {
 }
 
 @Composable
-fun ShowWatchProvider(currentShowId: String?, streamsViewModel: StreamsViewModel){
-    streamsViewModel.getStreamService(currentShowId)
-    val showWatchProviders = streamsViewModel.watchProviders
-    Column() {
-        Text(showWatchProviders[0].name)
+fun ShowWatchProvider(messages: List<StreamService>){
+    Column {
+        messages.forEach { message ->
+            Text(text = message.name)
+        }
     }
 }

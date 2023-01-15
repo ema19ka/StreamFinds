@@ -29,7 +29,7 @@ data class Show(
 )
 
 data class GetShowsResponse(
-    @SerializedName("results") val movies: List<Show>,
+    @SerializedName("results") val shows: List<Show>,
 )
 
 data class ShowDetails(
@@ -42,7 +42,6 @@ data class ShowDetails(
 )
 
 data class GetProviders(
-    @SerializedName("id") val id: Int,
     @SerializedName("results") val providers: ProviderCountry
 )
 
@@ -51,8 +50,7 @@ data class ProviderCountry(
 )
 
 data class Provider(
-    @SerializedName("link") val link: String,
-    @SerializedName("rent") val streamService: List<StreamService>
+    @SerializedName("flatrate") val streamService: List<StreamService>
 )
 
 data class StreamService(

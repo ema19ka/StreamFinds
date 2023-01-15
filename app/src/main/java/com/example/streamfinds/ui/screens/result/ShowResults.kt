@@ -25,6 +25,7 @@ fun ShowResults(
     navController: NavController,
     streamsViewModel: StreamsViewModel,
 ) {
+    streamsViewModel.getStreamService("1100")
     Column {
         CenterAlignedTopAppBar(
             title = { Text(text = "Search results") },
@@ -88,7 +89,7 @@ fun ShowPosterCard(
         Button(
             modifier = Modifier.padding(top = 16.dp),
             onClick = {
-                navController.navigate("details/${show.id}")
+                //navController.navigate("details/${show.id}")
             }) {
             Text(text = show.title)
         }

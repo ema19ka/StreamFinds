@@ -22,6 +22,7 @@ class StreamsViewModel() : ViewModel() {
 
 
     var finished by mutableStateOf(false)
+    var watchProviders = mutableListOf<StreamService>()
 
 
     fun getMovies(query: String) {
@@ -66,23 +67,24 @@ class StreamsViewModel() : ViewModel() {
             }
         )
     }
-    /*
-    fun getStreamService(movieId: String?) {
+
+    fun getStreamService(tvId: String?) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (movieId != null) {
+            if (tvId != null) {
                 com.example.streamfinds.data.StreamFindsRepository.getMovieWatchProviders(
-                    movieId.toInt(),
+                    tvId.toInt(),
                     onSuccess = { service ->
-                        watchProviders = service
+                        watchProviders = service as MutableList<StreamService>
+                        Log.d("Main", watchProviders.toString())
                         //change state to indicate coroutine has finished
                     },
                     onError = {
-                        Log.d("MainAc", "error")
+                        Log.d("Main", "error")
                     }
                 )
             }
         }
-    }*/
+    }
 }
 
 

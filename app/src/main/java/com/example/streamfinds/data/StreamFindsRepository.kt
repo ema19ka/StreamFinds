@@ -1,5 +1,6 @@
 package com.example.streamfinds.data
 
+import android.util.Log
 import com.example.streamfinds.model.*
 import com.example.streamfinds.network.MovieDbAPI
 import retrofit2.Call
@@ -90,10 +91,12 @@ object StreamFindsRepository {
                     call: Call<GetShowsResponse>,
                     response: Response<GetShowsResponse>
                 ) {
+                    Log.d("Main", response.toString())
                     if (response.isSuccessful) {
                         val responseBody = response.body()
                         if (responseBody != null) {
-                            onSuccess.invoke(responseBody.movies)
+                            onSuccess.invoke(responseBody.shows)
+                            println(responseBody)
                         } else {
                             onError.invoke()
                         }
@@ -108,21 +111,22 @@ object StreamFindsRepository {
 
     fun getMovieWatchProviders(
         id: Int,
-        onSuccess: (streamService: GetProviders) -> Unit,
+        onSuccess: (streamService: List<StreamService>) -> Unit,
         onError: () -> Unit
 
     ) {
-        api.movieWatchProviders(movie_id = id)
+        api.tvWatchProviders(movie_id = id)
             .enqueue(object : Callback<GetProviders> {
                 override fun onResponse(call: Call<GetProviders>, response: Response<GetProviders>) {
+                    Log.d("Main", response.toString())
                     if (response.isSuccessful) {
                         val responseBody = response.body()
                         if (responseBody != null) {
-                            onSuccess.invoke(responseBody)
-                            println(response)
+                            onSuccess.invoke(responseBody.providers.at.streamService)
                         }
                     } else {
                         onError.invoke()
+                        Log.d("Main", "error onResp")
                     }
                 }
 

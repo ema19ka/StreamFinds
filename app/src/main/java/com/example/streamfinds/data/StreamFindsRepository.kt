@@ -63,7 +63,10 @@ object StreamFindsRepository {
     ) {
         api.movieDetails(movie_id = id)
             .enqueue(object : Callback<MovieDetails> {
-                override fun onResponse(call: Call<MovieDetails>, response: Response<MovieDetails>) {
+                override fun onResponse(
+                    call: Call<MovieDetails>,
+                    response: Response<MovieDetails>
+                ) {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
                         if (responseBody != null) {
@@ -91,12 +94,10 @@ object StreamFindsRepository {
                     call: Call<GetShowsResponse>,
                     response: Response<GetShowsResponse>
                 ) {
-                    Log.d("Main", response.toString())
                     if (response.isSuccessful) {
                         val responseBody = response.body()
                         if (responseBody != null) {
                             onSuccess.invoke(responseBody.shows)
-                            println(responseBody)
                         } else {
                             onError.invoke()
                         }
@@ -142,8 +143,10 @@ object StreamFindsRepository {
     ) {
         api.tvWatchProviders(movie_id = id)
             .enqueue(object : Callback<GetProviders> {
-                override fun onResponse(call: Call<GetProviders>, response: Response<GetProviders>) {
-                    Log.d("Main", response.toString())
+                override fun onResponse(
+                    call: Call<GetProviders>,
+                    response: Response<GetProviders>
+                ) {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
                         if (responseBody != null) {
@@ -151,7 +154,6 @@ object StreamFindsRepository {
                         }
                     } else {
                         onError.invoke()
-                        Log.d("Main", "error onResp")
                     }
                 }
 

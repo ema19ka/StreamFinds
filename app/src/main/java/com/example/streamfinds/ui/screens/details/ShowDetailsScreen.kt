@@ -1,7 +1,6 @@
 package com.example.streamfinds.ui.screens.details
 
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,10 +30,9 @@ fun ShowDetailsScreen(
     navController: NavController,
 ) {
     val currentShowId = navController.currentBackStackEntry?.arguments?.getString("tv_id")
-    Log.d("Main1", currentShowId.toString())
     val showDetails = streamsViewModel.showDetails
-    Log.d("Main2", showDetails.toString())
     streamsViewModel.getShowDetails(currentShowId)
+
 
     Column{
         CenterAlignedTopAppBar(
@@ -53,6 +51,7 @@ fun ShowDetailsScreen(
             }
         )
         ShowDetails(showDetails = showDetails)
+        //ShowWatchProvider(currentShowId, streamsViewModel)
     }
 
 }
@@ -92,5 +91,15 @@ fun ShowDetails(showDetails: ShowDetails) {
         Row {
             Text(text = "Original language: ${showDetails.lang}", fontSize = 16.sp)
         }
+
+    }
+}
+
+@Composable
+fun ShowWatchProvider(currentShowId: String?, streamsViewModel: StreamsViewModel){
+    streamsViewModel.getStreamService(currentShowId)
+    val showWatchProviders = streamsViewModel.watchProviders
+    Column() {
+        Text(showWatchProviders[0].name)
     }
 }

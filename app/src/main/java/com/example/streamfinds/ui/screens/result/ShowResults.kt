@@ -24,7 +24,6 @@ fun ShowResults(
     navController: NavController,
     streamsViewModel: StreamsViewModel,
 ) {
-    streamsViewModel.getStreamService("1100")
     Column {
         CenterAlignedTopAppBar(
             title = { Text(text = "Search results") },

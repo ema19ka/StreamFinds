@@ -37,7 +37,9 @@ fun ShowDetailsScreen(
     streamsViewModel.getStreamService(currentShowId)
     val streamServices = streamsViewModel.watchProviders
 
-    Column{
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
         CenterAlignedTopAppBar(
             title = { Text(text = streamsViewModel.showDetails.enTitle) },
             navigationIcon = {
@@ -66,7 +68,7 @@ fun ShowDetails(showDetails: ShowDetails) {
         modifier = Modifier.padding(25.dp)
     ) {
         Image(
-            modifier = Modifier.size(500.dp),
+            modifier = Modifier.size(400.dp),
             painter = rememberAsyncImagePainter("https://image.tmdb.org/t/p/original/${showDetails.posterPath}"),
             contentDescription = "poster"
         )
@@ -110,10 +112,20 @@ fun ShowDetails(showDetails: ShowDetails) {
 }
 
 @Composable
-fun ShowWatchProvider(messages: List<StreamService>){
-    Column {
+fun ShowWatchProvider(messages: List<StreamService>) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
         messages.forEach { message ->
-            Text(text = message.name)
+            Row() {
+                /*Image(
+                    modifier = Modifier.size(50.dp),
+                    painter = rememberAsyncImagePainter("https://image.tmdb.org/t/p/original/${message.logo}"),
+                    contentDescription = "logo"
+                )*/
+                Text(text = message.name)
+            }
+
         }
     }
 }

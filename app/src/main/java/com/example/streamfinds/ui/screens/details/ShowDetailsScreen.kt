@@ -1,6 +1,7 @@
 package com.example.streamfinds.ui.screens.details
 
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,6 +38,7 @@ fun ShowDetailsScreen(
     streamsViewModel.getStreamService(currentShowId)
     val streamServices = streamsViewModel.watchProviders
 
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -56,9 +58,8 @@ fun ShowDetailsScreen(
             }
         )
         ShowDetails(showDetails = showDetails)
-        ShowWatchProvider(streamServices)
+        ShowWatchProvider(messages = streamServices)
     }
-
 }
 
 @Composable
@@ -116,6 +117,7 @@ fun ShowWatchProvider(messages: List<StreamService>) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        //Log.d("Main", messages.toString())
         messages.forEach { message ->
             Row() {
                 /*Image(

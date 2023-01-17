@@ -29,7 +29,7 @@ fun MovieResults(
             title = { Text(text = "Search results") },
             navigationIcon = {
                 IconButton(
-                    onClick = { navController.navigate("home") },
+                    onClick = { navController.navigate("movie_search") },
                     enabled = true,
                 ) {
                     Icon(

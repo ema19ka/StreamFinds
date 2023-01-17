@@ -29,7 +29,7 @@ fun ShowResults(
             title = { Text(text = "Search results") },
             navigationIcon = {
                 IconButton(
-                    onClick = { navController.navigate("home") },
+                    onClick = { navController.navigate("show_search") },
                     enabled = true,
                 ) {
                     Icon(

@@ -92,7 +92,6 @@ class StreamsViewModel() : ViewModel() {
                     tvId.toInt(),
                     onSuccess = { service ->
                         watchProviders = service as MutableList<StreamService>
-                        Log.d("Main", watchProviders.toString())
                         //change state to indicate coroutine has finished
                     },
                     onError = {

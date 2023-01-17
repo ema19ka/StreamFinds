@@ -9,6 +9,8 @@ import com.example.streamfinds.ui.screens.details.MovieDetailsScreen
 import com.example.streamfinds.ui.screens.StreamsViewModel
 import com.example.streamfinds.ui.screens.details.ShowDetailsScreen
 import com.example.streamfinds.ui.screens.home.HomeScreen
+import com.example.streamfinds.ui.screens.home.MovieSearch
+import com.example.streamfinds.ui.screens.home.ShowSearch
 import com.example.streamfinds.ui.screens.result.MovieResults
 import com.example.streamfinds.ui.screens.result.ShowResults
 
@@ -21,6 +23,12 @@ fun NavGraph (navController: NavHostController = rememberNavController(), stream
     {
         composable(route = Screens.Home.route){
             HomeScreen(navController, streamsViewModel)
+        }
+        composable(route = Screens.MovieSearch.route){
+            MovieSearch(navController, streamsViewModel)
+        }
+        composable(route = Screens.ShowSearch.route){
+            ShowSearch(navController, streamsViewModel)
         }
         composable(route = Screens.MoviesResult.route){
             MovieResults(navController, streamsViewModel)

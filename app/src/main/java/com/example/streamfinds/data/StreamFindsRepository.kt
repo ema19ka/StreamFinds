@@ -158,7 +158,7 @@ object StreamFindsRepository {
                 }
 
                 override fun onFailure(call: Call<GetProviders>, t: Throwable) {
-                    onError.invoke()
+                    Log.d("Main", t.toString());
                 }
             })
     }

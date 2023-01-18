@@ -35,9 +35,8 @@ fun ShowDetailsScreen(
     val currentShowId = navController.currentBackStackEntry?.arguments?.getString("tv_id")
     val showDetails = streamsViewModel.showDetails
     streamsViewModel.getShowDetails(currentShowId)
-    streamsViewModel.getStreamService(currentShowId)
     val streamServices = streamsViewModel.watchProviders
-
+    streamsViewModel.getStreamService(currentShowId)
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -58,7 +57,10 @@ fun ShowDetailsScreen(
             }
         )
         ShowDetails(showDetails = showDetails)
-        ShowWatchProvider(messages = streamServices)
+        if (streamServices.size != 0) {
+            Log.d("Test3", streamServices.toString())
+            ShowWatchProvider(messages = streamServices)
+        }
     }
 }
 

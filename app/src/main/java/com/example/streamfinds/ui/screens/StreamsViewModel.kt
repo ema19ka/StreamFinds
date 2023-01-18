@@ -22,7 +22,7 @@ class StreamsViewModel() : ViewModel() {
     var showDetails by mutableStateOf(ShowDetails(0, "title", "", "", "", ""))
 
     var finished by mutableStateOf(false)
-    var watchProviders = mutableListOf<StreamService>()
+    var watchProviders = mutableListOf<StreamService>(StreamService("loading", "Not available on any Streaming Services"))
 
 
     fun getMovies(query: String) {

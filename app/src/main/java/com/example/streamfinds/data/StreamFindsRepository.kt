@@ -149,8 +149,14 @@ object StreamFindsRepository {
                 ) {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
+                        Log.d("Test", response.toString())
+                        Log.d("Test2", responseBody.toString())
                         if (responseBody != null) {
-                            onSuccess.invoke(responseBody.providers.at.streamService)
+                            if (responseBody.providers.at != null) {
+                                if (responseBody.providers.at.streamService != null) {
+                                    onSuccess.invoke(responseBody.providers.at.streamService)
+                                }
+                            }
                         }
                     } else {
                         onError.invoke()
@@ -158,7 +164,7 @@ object StreamFindsRepository {
                 }
 
                 override fun onFailure(call: Call<GetProviders>, t: Throwable) {
-                    Log.d("Main", t.toString());
+                    Log.d("Main", t.toString())
                 }
             })
     }

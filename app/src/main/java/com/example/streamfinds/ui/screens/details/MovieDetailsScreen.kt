@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.LineHeightStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
@@ -80,7 +81,17 @@ fun MovieDetails(movieDetails: MovieDetails) {
             text = movieDetails.title,
             fontWeight = FontWeight.Bold,
             fontSize = 32.sp,
-            modifier = Modifier.padding(12.dp)
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(12.dp),
+            style = LocalTextStyle.current.merge(
+                TextStyle(
+                    lineHeight = 1.5.em,
+                    lineHeightStyle = LineHeightStyle(
+                        alignment = LineHeightStyle.Alignment.Center,
+                        trim = LineHeightStyle.Trim.None
+                    )
+                )
+            )
         )
         Text(
             text = "Release Date: ${movieDetails.releaseDate}",

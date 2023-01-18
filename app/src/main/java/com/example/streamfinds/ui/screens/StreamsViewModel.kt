@@ -95,6 +95,7 @@ class StreamsViewModel() : ViewModel() {
                         //change state to indicate coroutine has finished
                     },
                     onError = {
+                        watchProviders = mutableListOf<StreamService>(StreamService("loading", "Not available on any Streaming Services"))
                         Log.d("Main", "error")
                     }
                 )

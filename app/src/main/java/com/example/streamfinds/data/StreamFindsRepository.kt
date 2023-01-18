@@ -155,7 +155,11 @@ object StreamFindsRepository {
                             if (responseBody.providers.at != null) {
                                 if (responseBody.providers.at.streamService != null) {
                                     onSuccess.invoke(responseBody.providers.at.streamService)
+                                } else {
+                                    onError.invoke()
                                 }
+                            } else {
+                                onError.invoke()
                             }
                         }
                     } else {

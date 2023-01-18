@@ -140,11 +140,36 @@ object StreamFindsRepository {
         onError: () -> Unit
 
     ) {
-        api.tvWatchProviders(movie_id = id)
-            .enqueue(object : Callback<GetProviders> {
+        api.movieWatchProviders(movie_id = id)
+            .enqueue(object : Callback<GetProvidersCH> {
                 override fun onResponse(
-                    call: Call<GetProviders>,
-                    response: Response<GetProviders>
+                    call: Call<GetProvidersCH>,
+                    response: Response<GetProvidersCH>
+                ) {
+                    val responseBody = response.body()
+                    if (response.isSuccessful && responseBody != null && responseBody.providers.ch != null && responseBody.providers.ch.streamService != null) {
+                        onSuccess.invoke(responseBody.providers.ch.streamService)
+                    } else {
+                        onError.invoke()
+                    }
+                }
+                override fun onFailure(call: Call<GetProvidersCH>, t: Throwable) {
+                    Log.d("Main", "error")
+                }
+            })
+    }
+
+    fun getShowWatchProviders(
+        id: Int,
+        onSuccess: (streamService: List<StreamService>) -> Unit,
+        onError: () -> Unit
+
+    ) {
+        api.tvWatchProviders(tv_id = id)
+            .enqueue(object : Callback<GetProvidersAT> {
+                override fun onResponse(
+                    call: Call<GetProvidersAT>,
+                    response: Response<GetProvidersAT>
                 ) {
                     val responseBody = response.body()
                     if (response.isSuccessful && responseBody != null && responseBody.providers.at != null && responseBody.providers.at.streamService != null) {
@@ -153,8 +178,8 @@ object StreamFindsRepository {
                         onError.invoke()
                     }
                 }
-                override fun onFailure(call: Call<GetProviders>, t: Throwable) {
-                    Log.d("Main", t.toString())
+                override fun onFailure(call: Call<GetProvidersAT>, t: Throwable) {
+                    Log.d("Main", "error")
                 }
             })
     }

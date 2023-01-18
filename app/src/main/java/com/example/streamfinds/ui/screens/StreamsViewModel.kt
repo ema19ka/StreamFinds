@@ -85,10 +85,28 @@ class StreamsViewModel() : ViewModel() {
         }
     }
 
+    fun getMovieStreamService(movieId: String?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (movieId != null) {
+                com.example.streamfinds.data.StreamFindsRepository.getMovieWatchProviders(
+                    movieId.toInt(),
+                    onSuccess = { service ->
+                        watchProviders = service as MutableList<StreamService>
+                        //change state to indicate coroutine has finished
+                    },
+                    onError = {
+                        watchProviders = mutableListOf<StreamService>(StreamService("loading", "Not available on any Streaming Services"))
+                        Log.d("Main", "error")
+                    }
+                )
+            }
+        }
+    }
+
     fun getStreamService(tvId: String?) {
         viewModelScope.launch(Dispatchers.IO) {
             if (tvId != null) {
-                com.example.streamfinds.data.StreamFindsRepository.getMovieWatchProviders(
+                com.example.streamfinds.data.StreamFindsRepository.getShowWatchProviders(
                     tvId.toInt(),
                     onSuccess = { service ->
                         watchProviders = service as MutableList<StreamService>

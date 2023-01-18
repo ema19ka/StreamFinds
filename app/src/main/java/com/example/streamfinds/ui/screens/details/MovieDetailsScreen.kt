@@ -2,7 +2,6 @@ package com.example.streamfinds.ui.screens.details
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -20,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.streamfinds.model.MovieDetails
+import com.example.streamfinds.model.StreamService
 import com.example.streamfinds.ui.screens.StreamsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,7 +32,11 @@ fun MovieDetailsScreen(
     val movieDetails = streamsViewModel.movDet2
     streamsViewModel.getMovieDetails(currentMovieId)
 
-    Column{
+    val streamServices = streamsViewModel.watchProviders
+    streamsViewModel.getMovieStreamService(currentMovieId)
+
+
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
         CenterAlignedTopAppBar(
             title = { Text(text = streamsViewModel.movDet2.enTitle) },
             navigationIcon = {
@@ -49,6 +53,9 @@ fun MovieDetailsScreen(
             }
         )
         MovieDetails(movieDetails = movieDetails)
+        if (streamServices.size != 0) {
+            MovieWatchProvider(messages = streamServices)
+        }
     }
 
 }
@@ -70,23 +77,30 @@ fun MovieDetails(movieDetails: MovieDetails) {
             fontSize = 32.sp,
             modifier = Modifier.padding(12.dp)
         )
-        Row {
-            Text(
-                text = "Release Date: ${movieDetails.releaseDate}",
-                fontSize = 16.sp,
-                style = LocalTextStyle.current.merge(
-                    TextStyle(
-                        lineHeight = 2.5.em,
-                        lineHeightStyle = LineHeightStyle(
-                            alignment = LineHeightStyle.Alignment.Center,
-                            trim = LineHeightStyle.Trim.None
-                        )
+        Text(
+            text = "Release Date: ${movieDetails.releaseDate}",
+            fontSize = 16.sp,
+            style = LocalTextStyle.current.merge(
+                TextStyle(
+                    lineHeight = 2.5.em,
+                    lineHeightStyle = LineHeightStyle(
+                        alignment = LineHeightStyle.Alignment.Center,
+                        trim = LineHeightStyle.Trim.None
                     )
                 )
             )
-        }
-        Row {
-            Text(text = "Original language: ${movieDetails.lang}", fontSize = 16.sp)
+        )
+        Text(text = "Original language: ${movieDetails.lang}", fontSize = 16.sp)
+    }
+}
+
+@Composable
+fun MovieWatchProvider(messages: List<StreamService>) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        messages.forEach { message ->
+            Text(text = message.name)
         }
     }
 }

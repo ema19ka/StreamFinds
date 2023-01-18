@@ -41,12 +41,20 @@ data class ShowDetails(
     @SerializedName("name") val enTitle: String,
 )
 
-data class GetProviders(
-    @SerializedName("results") val providers: ProviderCountry
+data class GetProvidersAT(
+    @SerializedName("results") val providers: ProviderAT
 )
 
-data class ProviderCountry(
+data class GetProvidersCH(
+    @SerializedName("results") val providers: ProviderCH
+)
+
+data class ProviderAT(
     @SerializedName("AT") val at: Provider,
+)
+
+data class ProviderCH(
+    @SerializedName("AT") val ch: Provider,
 )
 
 data class Provider(

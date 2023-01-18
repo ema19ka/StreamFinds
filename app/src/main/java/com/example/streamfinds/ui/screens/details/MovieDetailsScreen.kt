@@ -38,7 +38,6 @@ fun MovieDetailsScreen(
     val streamServices = streamsViewModel.watchProviders
     streamsViewModel.getMovieStreamService(currentMovieId)
 
-
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.verticalScroll(rememberScrollState())

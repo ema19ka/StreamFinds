@@ -90,12 +90,12 @@ fun MovieSearch(
                 StreamFindsTitle()
                 Card(
                     Modifier
-                        .size(width = 400.dp, height = 300.dp)
+                        .size(width = 400.dp, height = 400.dp)
                         .padding(16.dp),
                 ) {
                     Column(
                         modifier = Modifier
-                            .padding(top = 10.dp),
+                            .padding(top = 45.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(text = "Search for a Movie", fontSize = 24.sp)
@@ -192,12 +192,12 @@ fun ShowSearch(
                 StreamFindsTitle()
                 Card(
                     Modifier
-                        .size(width = 400.dp, height = 300.dp)
+                        .size(width = 400.dp, height = 400.dp)
                         .padding(16.dp)
                 ) {
                     Column(
                         modifier = Modifier
-                            .padding(top = 10.dp),
+                            .padding(top = 45.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(text = "Search for a Show", fontSize = 24.sp)

@@ -69,7 +69,6 @@ fun MoviesGridScreen(
             )
         }
     }
-
 }
 
 @Composable

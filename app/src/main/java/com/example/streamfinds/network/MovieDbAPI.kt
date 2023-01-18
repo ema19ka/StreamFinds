@@ -20,6 +20,12 @@ interface MovieDbAPI {
         @Query("api_key") api_key: String = "4e3418e89befff40b8dfab831c11e2d9"
     ): Call<MovieDetails>
 
+    @GET("movie/{movie_id}/watch/providers")
+    fun movieWatchProviders(
+        @Path("movie_id") movie_id: Int,
+        @Query("api_key") api_key: String = "4e3418e89befff40b8dfab831c11e2d9"
+    ): Call<GetProvidersCH>
+
     @GET("search/tv")
     fun searchShow(
         @Query("api_key") api_key: String = "4e3418e89befff40b8dfab831c11e2d9",
@@ -28,21 +34,15 @@ interface MovieDbAPI {
 
     @GET("tv/{tv_id}")
     fun showDetails(
-        @Path("tv_id") tv_id: Int,
+        @Path("tv_id") show_id: Int,
         @Query("api_key") api_key: String = "4e3418e89befff40b8dfab831c11e2d9"
     ): Call<ShowDetails>
 
     @GET("tv/{tv_id}/watch/providers")
-    fun tvWatchProviders(
-        @Path("tv_id") tv_id: Int,
+    fun showWatchProviders(
+        @Path("tv_id") show_id: Int,
         @Query("api_key") api_key: String = "4e3418e89befff40b8dfab831c11e2d9"
     ): Call<GetProvidersAT>
-
-    @GET("movie/{movie_id}/watch/providers")
-    fun movieWatchProviders(
-        @Path("movie_id") movie_id: Int,
-        @Query("api_key") api_key: String = "4e3418e89befff40b8dfab831c11e2d9"
-    ): Call<GetProvidersCH>
 }
 
 

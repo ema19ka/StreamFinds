@@ -39,6 +39,7 @@ data class ShowDetails(
     @SerializedName("first_air_date") val releaseDate: String,
     @SerializedName("original_language") val lang: String,
     @SerializedName("name") val enTitle: String,
+    @SerializedName("number_of_seasons") val seasons: Int,
 )
 
 data class GetProvidersAT(

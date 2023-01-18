@@ -42,8 +42,8 @@ fun NavGraph (navController: NavHostController = rememberNavController(), stream
             MovieDetailsScreen(streamsViewModel, navController)
         }
         composable(route = Screens.ShowDetails.route){ backStackEntry ->
-            val tv_id = backStackEntry.arguments?.getString("tv_id")
-            requireNotNull(tv_id) { "MovieId parameter wasn't found. Please make sure it's set!" }
+            val show_id = backStackEntry.arguments?.getString("tv_id")
+            requireNotNull(show_id) { "ShowId parameter wasn't found. Please make sure it's set!" }
             ShowDetailsScreen(streamsViewModel, navController)
         }
     }

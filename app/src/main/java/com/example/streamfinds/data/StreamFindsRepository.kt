@@ -116,7 +116,7 @@ object StreamFindsRepository {
         onError: () -> Unit
 
     ) {
-        api.showDetails(tv_id = id)
+        api.showDetails(show_id = id)
             .enqueue(object : Callback<ShowDetails> {
                 override fun onResponse(call: Call<ShowDetails>, response: Response<ShowDetails>) {
                     if (response.isSuccessful) {
@@ -165,7 +165,7 @@ object StreamFindsRepository {
         onError: () -> Unit
 
     ) {
-        api.tvWatchProviders(tv_id = id)
+        api.showWatchProviders(show_id = id)
             .enqueue(object : Callback<GetProvidersAT> {
                 override fun onResponse(
                     call: Call<GetProvidersAT>,

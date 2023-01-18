@@ -19,7 +19,7 @@ class StreamsViewModel() : ViewModel() {
     var showsList = mutableListOf<Show>()
 
     var movieDetails by mutableStateOf(MovieDetails(0, "title", "", "", "", ""))
-    var showDetails by mutableStateOf(ShowDetails(0, "title", "", "", "", ""))
+    var showDetails by mutableStateOf(ShowDetails(0, "title", "", "", "", "", 0))
 
     var watchProviders = mutableListOf<StreamService>(StreamService("loading", "Not available on any Streaming Services"))
 
@@ -54,12 +54,11 @@ class StreamsViewModel() : ViewModel() {
             }
         }
     }
-
-    fun getStreamService(tvId: String?) {
+    fun getMovieStreamService(movieId: String?) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (tvId != null) {
-                com.example.streamfinds.data.StreamFindsRepository.getShowWatchProviders(
-                    tvId.toInt(),
+            if (movieId != null) {
+                com.example.streamfinds.data.StreamFindsRepository.getMovieWatchProviders(
+                    movieId.toInt(),
                     onSuccess = { service ->
                         watchProviders = service as MutableList<StreamService>
                     },
@@ -75,7 +74,6 @@ class StreamsViewModel() : ViewModel() {
     /***
      * Shows
      */
-
     fun getShows(query: String) {
         com.example.streamfinds.data.StreamFindsRepository.getShow(
             query,
@@ -88,11 +86,11 @@ class StreamsViewModel() : ViewModel() {
         )
     }
 
-    fun getShowDetails(tvId: String?) {
+    fun getShowDetails(showId: String?) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (tvId != null) {
+            if (showId != null) {
                 com.example.streamfinds.data.StreamFindsRepository.getShowDetails(
-                    tvId.toInt(),
+                    showId.toInt(),
                     onSuccess = { showDet ->
                         showDetails = showDet
                     },
@@ -104,11 +102,11 @@ class StreamsViewModel() : ViewModel() {
         }
     }
 
-    fun getMovieStreamService(movieId: String?) {
+    fun getShowStreamService(showId: String?) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (movieId != null) {
-                com.example.streamfinds.data.StreamFindsRepository.getMovieWatchProviders(
-                    movieId.toInt(),
+            if (showId != null) {
+                com.example.streamfinds.data.StreamFindsRepository.getShowWatchProviders(
+                    showId.toInt(),
                     onSuccess = { service ->
                         watchProviders = service as MutableList<StreamService>
                     },

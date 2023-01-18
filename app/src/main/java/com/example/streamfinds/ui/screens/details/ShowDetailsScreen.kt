@@ -37,14 +37,19 @@ fun ShowDetailsScreen(
     streamsViewModel.getShowDetails(currentShowId)
 
     val streamServices = streamsViewModel.watchProviders
-    streamsViewModel.getStreamService(currentShowId)
+    streamsViewModel.getShowStreamService(currentShowId)
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.verticalScroll(rememberScrollState())
     ) {
         CenterAlignedTopAppBar(
-            title = { Text(text = streamsViewModel.showDetails.enTitle) },
+            title = {
+                Text(
+                    text = streamsViewModel.showDetails.enTitle,
+                    textAlign = TextAlign.Center,
+                )
+            },
             navigationIcon = {
                 IconButton(
                     onClick = { navController.navigate("shows_result") },
@@ -94,11 +99,11 @@ fun ShowDetails(showDetails: ShowDetails) {
 
         )
         Text(
-            text = "Release Date: ${showDetails.releaseDate}",
+            text = "First aired on: ${showDetails.releaseDate}",
             fontSize = 16.sp,
             style = LocalTextStyle.current.merge(
                 TextStyle(
-                    lineHeight = 2.5.em,
+                    lineHeight = 1.5.em,
                     lineHeightStyle = LineHeightStyle(
                         alignment = LineHeightStyle.Alignment.Center,
                         trim = LineHeightStyle.Trim.None
@@ -106,7 +111,20 @@ fun ShowDetails(showDetails: ShowDetails) {
                 )
             )
         )
-        Text(text = "Original language: ${showDetails.lang}", fontSize = 16.sp)
+        Text(
+            text = "Original language: ${showDetails.lang}",
+            fontSize = 16.sp,
+            style = LocalTextStyle.current.merge(
+                TextStyle(
+                    lineHeight = 1.5.em,
+                    lineHeightStyle = LineHeightStyle(
+                        alignment = LineHeightStyle.Alignment.Center,
+                        trim = LineHeightStyle.Trim.None
+                    )
+                )
+            )
+        )
+        Text("Seasons: ${showDetails.seasons}", fontSize = 16.sp)
     }
 }
 

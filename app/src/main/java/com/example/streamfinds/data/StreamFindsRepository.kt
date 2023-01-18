@@ -128,7 +128,6 @@ object StreamFindsRepository {
                         onError.invoke()
                     }
                 }
-
                 override fun onFailure(call: Call<ShowDetails>, t: Throwable) {
                     onError.invoke()
                 }
@@ -147,26 +146,13 @@ object StreamFindsRepository {
                     call: Call<GetProviders>,
                     response: Response<GetProviders>
                 ) {
-                    if (response.isSuccessful) {
-                        val responseBody = response.body()
-                        Log.d("Test", response.toString())
-                        Log.d("Test2", responseBody.toString())
-                        if (responseBody != null) {
-                            if (responseBody.providers.at != null) {
-                                if (responseBody.providers.at.streamService != null) {
-                                    onSuccess.invoke(responseBody.providers.at.streamService)
-                                } else {
-                                    onError.invoke()
-                                }
-                            } else {
-                                onError.invoke()
-                            }
-                        }
+                    val responseBody = response.body()
+                    if (response.isSuccessful && responseBody != null && responseBody.providers.at != null && responseBody.providers.at.streamService != null) {
+                        onSuccess.invoke(responseBody.providers.at.streamService)
                     } else {
                         onError.invoke()
                     }
                 }
-
                 override fun onFailure(call: Call<GetProviders>, t: Throwable) {
                     Log.d("Main", t.toString())
                 }

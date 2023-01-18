@@ -1,10 +1,8 @@
 package com.example.streamfinds.ui.screens.details
 
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -35,6 +33,7 @@ fun ShowDetailsScreen(
     val currentShowId = navController.currentBackStackEntry?.arguments?.getString("tv_id")
     val showDetails = streamsViewModel.showDetails
     streamsViewModel.getShowDetails(currentShowId)
+
     val streamServices = streamsViewModel.watchProviders
     streamsViewModel.getStreamService(currentShowId)
 
@@ -58,7 +57,6 @@ fun ShowDetailsScreen(
         )
         ShowDetails(showDetails = showDetails)
         if (streamServices.size != 0) {
-            Log.d("Test3", streamServices.toString())
             ShowWatchProvider(messages = streamServices)
         }
     }
@@ -92,25 +90,20 @@ fun ShowDetails(showDetails: ShowDetails) {
             )
 
         )
-        Row {
-            Text(
-                text = "Release Date: ${showDetails.releaseDate}",
-                fontSize = 16.sp,
-                style = LocalTextStyle.current.merge(
-                    TextStyle(
-                        lineHeight = 2.5.em,
-                        lineHeightStyle = LineHeightStyle(
-                            alignment = LineHeightStyle.Alignment.Center,
-                            trim = LineHeightStyle.Trim.None
-                        )
+        Text(
+            text = "Release Date: ${showDetails.releaseDate}",
+            fontSize = 16.sp,
+            style = LocalTextStyle.current.merge(
+                TextStyle(
+                    lineHeight = 2.5.em,
+                    lineHeightStyle = LineHeightStyle(
+                        alignment = LineHeightStyle.Alignment.Center,
+                        trim = LineHeightStyle.Trim.None
                     )
                 )
             )
-        }
-        Row {
-            Text(text = "Original language: ${showDetails.lang}", fontSize = 16.sp)
-        }
-
+        )
+        Text(text = "Original language: ${showDetails.lang}", fontSize = 16.sp)
     }
 }
 
@@ -119,17 +112,8 @@ fun ShowWatchProvider(messages: List<StreamService>) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        //Log.d("Main", messages.toString())
         messages.forEach { message ->
-            Row() {
-                /*Image(
-                    modifier = Modifier.size(50.dp),
-                    painter = rememberAsyncImagePainter("https://image.tmdb.org/t/p/original/${message.logo}"),
-                    contentDescription = "logo"
-                )*/
-                Text(text = message.name)
-            }
-
+            Text(text = message.name)
         }
     }
 }

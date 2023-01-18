@@ -50,15 +50,19 @@ data class GetProvidersCH(
 )
 
 data class ProviderAT(
-    @SerializedName("AT") val at: Provider,
+    @SerializedName("AT") val at: ProviderFlatrate,
 )
 
 data class ProviderCH(
-    @SerializedName("AT") val ch: Provider,
+    @SerializedName("CH") val ch: ProviderFlatrate,
 )
 
-data class Provider(
+data class ProviderFlatrate(
     @SerializedName("flatrate") val streamService: List<StreamService>
+)
+
+data class ProviderRent(
+    @SerializedName("rent") val streamService: List<StreamService>
 )
 
 data class StreamService(

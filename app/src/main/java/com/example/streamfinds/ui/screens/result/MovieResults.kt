@@ -40,7 +40,7 @@ fun MovieResults(
                 }
             }
         )
-        val movies = streamsViewModel.list
+        val movies = streamsViewModel.moviesList
         MoviesGridScreen(movies = movies, navController)
 
     }

@@ -15,21 +15,23 @@ import kotlinx.coroutines.launch
 class StreamsViewModel() : ViewModel() {
 
 
-    var list = mutableListOf<Movie>()
+    var moviesList = mutableListOf<Movie>()
     var showsList = mutableListOf<Show>()
 
-    var movDet2 by mutableStateOf(MovieDetails(0, "title", "", "", "", ""))
+    var movieDetails by mutableStateOf(MovieDetails(0, "title", "", "", "", ""))
     var showDetails by mutableStateOf(ShowDetails(0, "title", "", "", "", ""))
 
-    var finished by mutableStateOf(false)
     var watchProviders = mutableListOf<StreamService>(StreamService("loading", "Not available on any Streaming Services"))
 
 
+    /***
+     * Movies
+     */
     fun getMovies(query: String) {
         com.example.streamfinds.data.StreamFindsRepository.getMovies(
             query,
             onSuccess = { movies ->
-                list = movies as MutableList<Movie>
+                moviesList = movies as MutableList<Movie>
             },
             onError = {
                 Log.d("MainAc", "error")
@@ -43,9 +45,7 @@ class StreamsViewModel() : ViewModel() {
                 com.example.streamfinds.data.StreamFindsRepository.getMovieDetails(
                     movieId.toInt(),
                     onSuccess = { movieDet ->
-                        movDet2 = movieDet
-                        //change state to indicate coroutine has finished
-                        finished = true
+                        movieDetails = movieDet
                     },
                     onError = {
                         Log.d("MainAc", "error")
@@ -54,6 +54,27 @@ class StreamsViewModel() : ViewModel() {
             }
         }
     }
+
+    fun getStreamService(tvId: String?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (tvId != null) {
+                com.example.streamfinds.data.StreamFindsRepository.getShowWatchProviders(
+                    tvId.toInt(),
+                    onSuccess = { service ->
+                        watchProviders = service as MutableList<StreamService>
+                    },
+                    onError = {
+                        watchProviders = mutableListOf<StreamService>(StreamService("loading", "Not available on any Streaming Services"))
+                        Log.d("Main", "error")
+                    }
+                )
+            }
+        }
+    }
+
+    /***
+     * Shows
+     */
 
     fun getShows(query: String) {
         com.example.streamfinds.data.StreamFindsRepository.getShow(
@@ -74,8 +95,6 @@ class StreamsViewModel() : ViewModel() {
                     tvId.toInt(),
                     onSuccess = { showDet ->
                         showDetails = showDet
-                        //change state to indicate coroutine has finished
-                        finished = true
                     },
                     onError = {
                         Log.d("MainAc", "error")
@@ -92,25 +111,6 @@ class StreamsViewModel() : ViewModel() {
                     movieId.toInt(),
                     onSuccess = { service ->
                         watchProviders = service as MutableList<StreamService>
-                        //change state to indicate coroutine has finished
-                    },
-                    onError = {
-                        watchProviders = mutableListOf<StreamService>(StreamService("loading", "Not available on any Streaming Services"))
-                        Log.d("Main", "error")
-                    }
-                )
-            }
-        }
-    }
-
-    fun getStreamService(tvId: String?) {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (tvId != null) {
-                com.example.streamfinds.data.StreamFindsRepository.getShowWatchProviders(
-                    tvId.toInt(),
-                    onSuccess = { service ->
-                        watchProviders = service as MutableList<StreamService>
-                        //change state to indicate coroutine has finished
                     },
                     onError = {
                         watchProviders = mutableListOf<StreamService>(StreamService("loading", "Not available on any Streaming Services"))

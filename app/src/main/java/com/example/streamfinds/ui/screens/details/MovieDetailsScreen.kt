@@ -29,7 +29,7 @@ fun MovieDetailsScreen(
     navController: NavController,
 ) {
     val currentMovieId = navController.currentBackStackEntry?.arguments?.getString("movie_id")
-    val movieDetails = streamsViewModel.movDet2
+    val movieDetails = streamsViewModel.movieDetails
     streamsViewModel.getMovieDetails(currentMovieId)
 
     val streamServices = streamsViewModel.watchProviders
@@ -38,7 +38,7 @@ fun MovieDetailsScreen(
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         CenterAlignedTopAppBar(
-            title = { Text(text = streamsViewModel.movDet2.enTitle) },
+            title = { Text(text = streamsViewModel.movieDetails.enTitle) },
             navigationIcon = {
                 IconButton(
                     onClick = { navController.navigate("movies_result") },

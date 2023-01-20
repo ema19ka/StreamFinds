@@ -69,6 +69,100 @@ fun NavBar(navController: NavController, currentIndex: Int) {
     }
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun Search(
+    navController: NavController,
+    searchTerm: String = "",
+    searchTitle: String = "Search for a Movie",
+    searchCallback: (String) -> Unit,
+    route: String
+) {
+    var input by remember { mutableStateOf(searchTerm) }
+
+    Scaffold(content = {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceEvenly
+        ) {
+            StreamFindsTitle()
+            Card(
+                Modifier
+                    .size(width = 400.dp, height = 400.dp)
+                    .padding(16.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .padding(top = 45.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(text = searchTitle, fontSize = 24.sp)
+                    SearchBox(
+                        value = input,
+                        onValueChange = { newText -> input = newText },
+                        onSearch = {
+                            searchCallback(input)
+                            navController.navigate(route)
+                        }
+                    )
+                }
+            }
+        }
+    })
+}
+@Composable
+fun SearchBox(value: String, onValueChange: (String) -> Unit, onSearch: (String) -> Unit) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        BasicTextField(
+            value = value,
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+            keyboardActions = KeyboardActions(onDone = { onSearch(value) }),
+            onValueChange = { newText ->
+                onValueChange(newText)
+            },
+            textStyle = TextStyle(
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.onPrimaryContainer
+            ),
+            cursorBrush = Brush.verticalGradient(
+                colors = listOf(
+                    Color(MaterialTheme.colorScheme.onPrimaryContainer.value),
+                    Color(MaterialTheme.colorScheme.onSecondaryContainer.value)
+                )
+            ),
+            decorationBox = { innerTextField ->
+                Row(
+                    modifier = Modifier
+                        .padding(
+                            horizontal = 64.dp,
+                            vertical = 16.dp
+                        ) // margin left and right
+                        .fillMaxWidth()
+                        .background(
+                            color = MaterialTheme.colorScheme.primaryContainer,
+                            shape = RoundedCornerShape(size = 16.dp)
+                        )
+                        .border(
+                            width = 2.dp,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                            shape = RoundedCornerShape(size = 16.dp)
+                        )
+                        .padding(all = 16.dp), // inner padding
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Search Icon",
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                    innerTextField()
+                }
+            }
+        )
+    }
+}
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -78,93 +172,16 @@ fun MovieSearch(
     streamsViewModel: StreamsViewModel,
 
     ) {
-    var movieInput by remember {
-        mutableStateOf("")
-    }
     Scaffold(
         content = {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.SpaceEvenly
-            ) {
-                StreamFindsTitle()
-                Card(
-                    Modifier
-                        .size(width = 400.dp, height = 400.dp)
-                        .padding(16.dp),
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .padding(top = 45.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(text = "Search for a Movie", fontSize = 24.sp)
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            BasicTextField(
-                                value = movieInput,
-                                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                                keyboardActions = KeyboardActions(
-                                    onDone = {
-                                        streamsViewModel.getMovies(movieInput)
-                                        navController.navigate("movies_result")
-                                    }
-                                ),
-                                onValueChange = { newText ->
-                                    movieInput = newText
-                                },
-                                textStyle = TextStyle(
-                                    fontSize = 20.sp,
-                                    fontWeight = FontWeight.Medium,
-                                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                                ),
-                                cursorBrush = Brush.verticalGradient(
-                                    colors = listOf(
-                                        Color(MaterialTheme.colorScheme.onPrimaryContainer.value),
-                                        Color(MaterialTheme.colorScheme.onSecondaryContainer.value)
-                                    )
-                                ),
-                                decorationBox = { innerTextField ->
-                                    Row(
-                                        modifier = Modifier
-                                            .padding(
-                                                horizontal = 64.dp,
-                                                vertical = 16.dp
-                                            ) // margin left and right
-                                            .fillMaxWidth()
-                                            .background(
-                                                color = MaterialTheme.colorScheme.primaryContainer,
-                                                shape = RoundedCornerShape(size = 16.dp)
-                                            )
-                                            .border(
-                                                width = 2.dp,
-                                                color = MaterialTheme.colorScheme.onPrimaryContainer,
-                                                shape = RoundedCornerShape(size = 16.dp)
-                                            )
-                                            .padding(all = 16.dp), // inner padding
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Default.Search,
-                                            contentDescription = "Search Icon",
-                                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                                        )
-                                        Spacer(modifier = Modifier.width(width = 8.dp))
-                                        innerTextField()
-                                    }
-                                }
-                            )
-                            Button(onClick = {
-                                streamsViewModel.getMovies(movieInput)
-                                navController.navigate("movies_result")
-                            }) {
-                                Text(text = "Search")
-                            }
-
-                        }
-
-                    }
-                }
-            }
+            Search(
+                navController,
+                searchTitle = "Search for a Movie",
+                searchCallback = { movieInput ->
+                    streamsViewModel.getMovies(movieInput)
+                },
+                route = "movies_result"
+            )
         },
         bottomBar = {
             NavBar(navController = navController, currentIndex = 0)
@@ -178,94 +195,17 @@ fun MovieSearch(
 fun ShowSearch(
     navController: NavController,
     streamsViewModel: StreamsViewModel,
-
     ) {
-    var showInput by remember {
-        mutableStateOf("")
-    }
     Scaffold(
         content = {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.SpaceEvenly
-            ) {
-                StreamFindsTitle()
-                Card(
-                    Modifier
-                        .size(width = 400.dp, height = 400.dp)
-                        .padding(16.dp)
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .padding(top = 45.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(text = "Search for a Show", fontSize = 24.sp)
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            BasicTextField(
-                                value = showInput,
-                                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                                keyboardActions = KeyboardActions(
-                                    onDone = {
-                                        streamsViewModel.getShows(showInput)
-                                        navController.navigate("shows_result")
-                                    }
-                                ),
-                                onValueChange = { newText ->
-                                    showInput = newText
-                                },
-                                textStyle = TextStyle(
-                                    fontSize = 20.sp,
-                                    fontWeight = FontWeight.Medium,
-                                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                                ),
-                                cursorBrush = Brush.verticalGradient(
-                                    colors = listOf(
-                                        Color(MaterialTheme.colorScheme.onPrimaryContainer.value),
-                                        Color(MaterialTheme.colorScheme.onSecondaryContainer.value)
-                                    )
-                                ),
-                                decorationBox = { innerTextField ->
-                                    Row(
-                                        modifier = Modifier
-                                            .padding(
-                                                horizontal = 64.dp,
-                                                vertical = 16.dp
-                                            ) // margin left and right
-                                            .fillMaxWidth()
-                                            .background(
-                                                color = MaterialTheme.colorScheme.primaryContainer,
-                                                shape = RoundedCornerShape(size = 16.dp)
-                                            )
-                                            .border(
-                                                width = 2.dp,
-                                                color = MaterialTheme.colorScheme.onPrimaryContainer,
-                                                shape = RoundedCornerShape(size = 16.dp)
-                                            )
-                                            .padding(all = 16.dp), // inner padding
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Default.Search,
-                                            contentDescription = "Search Icon",
-                                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                                        )
-                                        Spacer(modifier = Modifier.width(width = 8.dp))
-                                        innerTextField()
-                                    }
-                                }
-                            )
-                            Button(onClick = {
-                                streamsViewModel.getShows(showInput)
-                                navController.navigate("shows_result")
-                            }) {
-                                Text(text = "Search")
-                            }
-
-                        }
-                    }
-                }
-            }
+            Search(
+                navController,
+                searchTitle = "Search for a Show",
+                searchCallback = { showInput ->
+                    streamsViewModel.getShows(showInput)
+                },
+                route = "shows_result"
+            )
         },
         bottomBar = {
             NavBar(navController = navController, currentIndex = 1)

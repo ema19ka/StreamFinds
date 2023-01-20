@@ -20,12 +20,30 @@ object StreamFindsRepository {
     private val api: MovieDbAPI
 
     init {
-        val retrofit = Retrofit.Builder()
+        val retrofit = createRetrofit()
+        api = retrofit.create(MovieDbAPI::class.java)
+    }
+
+    private fun createRetrofit(): Retrofit {
+        return Retrofit.Builder()
             .baseUrl("https://api.themoviedb.org/3/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
 
-        api = retrofit.create(MovieDbAPI::class.java)
+    private fun <T> createCallback(onSuccess: (T) -> Unit, onError: () -> Unit) : Callback<T> {
+        return object : Callback<T> {
+            override fun onResponse(call: Call<T>, response: Response<T>) {
+                if (response.isSuccessful && response.body() != null) {
+                    onSuccess(response.body()!!)
+                } else {
+                    onError()
+                }
+            }
+            override fun onFailure(call: Call<T>, t: Throwable) {
+                onError()
+            }
+        }
     }
 
     fun getMovies(
@@ -34,25 +52,7 @@ object StreamFindsRepository {
         onError: () -> Unit
     ) {
         api.searchMovie(query = query)
-            .enqueue(object : Callback<GetMoviesResponse> {
-                override fun onResponse(
-                    call: Call<GetMoviesResponse>,
-                    response: Response<GetMoviesResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        val responseBody = response.body()
-                        if (responseBody != null) {
-                            onSuccess.invoke(responseBody.movies)
-                        } else {
-                            onError.invoke()
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<GetMoviesResponse>, t: Throwable) {
-                    onError.invoke()
-                }
-            })
+            .enqueue(createCallback(onSuccess = {response -> onSuccess(response.movies)}, onError))
     }
 
     fun getMovieDetails(
@@ -62,25 +62,7 @@ object StreamFindsRepository {
 
     ) {
         api.movieDetails(movie_id = id)
-            .enqueue(object : Callback<MovieDetails> {
-                override fun onResponse(
-                    call: Call<MovieDetails>,
-                    response: Response<MovieDetails>
-                ) {
-                    if (response.isSuccessful) {
-                        val responseBody = response.body()
-                        if (responseBody != null) {
-                            onSuccess.invoke(responseBody)
-                        }
-                    } else {
-                        onError.invoke()
-                    }
-                }
-
-                override fun onFailure(call: Call<MovieDetails>, t: Throwable) {
-                    onError.invoke()
-                }
-            })
+            .enqueue(createCallback(onSuccess = {response -> onSuccess(response)}, onError))
     }
 
     fun getShow(
@@ -89,25 +71,7 @@ object StreamFindsRepository {
         onError: () -> Unit
     ) {
         api.searchShow(query = query)
-            .enqueue(object : Callback<GetShowsResponse> {
-                override fun onResponse(
-                    call: Call<GetShowsResponse>,
-                    response: Response<GetShowsResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        val responseBody = response.body()
-                        if (responseBody != null) {
-                            onSuccess.invoke(responseBody.shows)
-                        } else {
-                            onError.invoke()
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<GetShowsResponse>, t: Throwable) {
-                    onError.invoke()
-                }
-            })
+            .enqueue(createCallback(onSuccess = {response -> onSuccess(response.shows)}, onError))
     }
 
     fun getShowDetails(
@@ -117,21 +81,7 @@ object StreamFindsRepository {
 
     ) {
         api.showDetails(show_id = id)
-            .enqueue(object : Callback<ShowDetails> {
-                override fun onResponse(call: Call<ShowDetails>, response: Response<ShowDetails>) {
-                    if (response.isSuccessful) {
-                        val responseBody = response.body()
-                        if (responseBody != null) {
-                            onSuccess.invoke(responseBody)
-                        }
-                    } else {
-                        onError.invoke()
-                    }
-                }
-                override fun onFailure(call: Call<ShowDetails>, t: Throwable) {
-                    onError.invoke()
-                }
-            })
+            .enqueue(createCallback(onSuccess = {response -> onSuccess(response)}, onError))
     }
 
     fun getMovieWatchProviders(
